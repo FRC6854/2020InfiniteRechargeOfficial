@@ -39,9 +39,4 @@ public interface RobotMap {
       public static final int CAN_RIGHT_FRONT_DRIVE = 1;
       public static final int CAN_LEFT_BACK_DRIVE = 0;
       public static final int CAN_RIGHT_BACK_DRIVE = 1;
-
-      /**
-       * Colour Sensor
-       */
-      public static final I2C.Port I2C_COLOUR_SENSOR = I2C.Port.kOnboard;
 }

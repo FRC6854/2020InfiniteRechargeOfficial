@@ -1,14 +1,12 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.util.Color;
-
-import com.revrobotics.ColorSensorV3;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import viking.ColorSensor;
 
 public class Robot extends TimedRobot implements RobotMap {
 
-  
-  ColorSensorV3 colourSensor = new ColorSensorV3(I2C_COLOUR_SENSOR);
+  ColorSensor colorSensor = new ColorSensor();
 
   @Override
   public void robotInit() {
@@ -16,7 +14,7 @@ public class Robot extends TimedRobot implements RobotMap {
 
   @Override
   public void robotPeriodic() {
-    
+    SmartDashboard.putString("Color", colorSensor.getColor());
   }
 
   @Override
@@ -41,9 +39,5 @@ public class Robot extends TimedRobot implements RobotMap {
 
   @Override
   public void testPeriodic() {
-  }
-
-  public Color getColourSensor(){
-      return colourSensor.getColor();
   }
 }
