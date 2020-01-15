@@ -32,8 +32,10 @@ public interface RobotMap {
      * Motor Controllers: Specify the connection type (CAN, PWM) and
      * location/subsystem in the constant
      */
-    public static final int CAN_LEFT_FRONT_DRIVE = 0;
-    public static final int CAN_RIGHT_FRONT_DRIVE = 1;
-    public static final int CAN_LEFT_BACK_DRIVE = 0;
-    public static final int CAN_RIGHT_BACK_DRIVE = 1;
+    public static final int CAN_LEFT_FRONT = 11;
+    public static final int CAN_RIGHT_FRONT = 13;
+    public static final int CAN_LEFT_BACK = 12;
+    public static final int CAN_RIGHT_BACK = 10;
+
+    public static final int CAN_SPARK_MAX = 1;
 }
