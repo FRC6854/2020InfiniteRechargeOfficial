@@ -18,7 +18,7 @@ public interface Constants {
 	
 	public final double metersPerRevolution = 2 * Math.PI * 0.0762;
 
-    public final double dt_kDeadband = 0.02;
+    public final double dt_kDeadband = 0.02; 
 
 	//Drive Speed Scalar
 	public final double jukeSpeedScale = 0.85;
@@ -35,4 +35,17 @@ public interface Constants {
 	public final double gyro_kP = 0.025;
 	public final double gyro_kI = 0.0;
 	public final double gyro_kD = 0.2;
+
+	/**
+	 * -------------------
+	 *  INTAKE CONSTANTS
+	 * -------------------
+	 */
+	public final double INTAKE_KP = 0;
+	public final double INTAKE_kI = 0;
+	public final double INTAKE_KD = 0;
+	public final double INTAKE_KF = 0;
+	public final double INTAKE_ACCELERATION = 0;
+	public final double INTAKE_MAX_VELOCITY = 0;
+
 }

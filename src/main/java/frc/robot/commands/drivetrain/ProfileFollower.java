@@ -7,13 +7,13 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Constants;
 import frc.robot.subsystems.KitDrivetrain;
 
-import viking.MotionProfileBuffer;
+import viking.ProfileBuffer;
 
 public class ProfileFollower extends CommandBase {
 
   private KitDrivetrain drivetrain = null;
 
-  private MotionProfileBuffer profile;
+  private ProfileBuffer profile;
   private MotionProfileStatus status;
 
   StringBuilder output = new StringBuilder();
@@ -21,7 +21,7 @@ public class ProfileFollower extends CommandBase {
   public ProfileFollower(String path) {
     drivetrain = KitDrivetrain.getInstance();
 
-    profile = new MotionProfileBuffer("/home/lvuser/paths/" + path, Constants.metersPerRevolution);
+    profile = new ProfileBuffer("/home/lvuser/paths/" + path);
 
     addRequirements(drivetrain);
   }
@@ -33,9 +33,11 @@ public class ProfileFollower extends CommandBase {
 
     System.out.println("Filling Talons...");
 
-    drivetrain.motionProfile(profile.getLeftBuffer(), profile.getRightBuffer());
+    drivetrain.initMotionBuffers(profile.getLeftProfile(), profile.getRightProfile());
 
     System.out.println("Executing the Profile");
+
+    drivetrain.motionProfile();
   }
 
   @Override

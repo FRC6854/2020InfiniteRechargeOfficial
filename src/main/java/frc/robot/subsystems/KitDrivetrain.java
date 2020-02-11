@@ -31,9 +31,9 @@ public class KitDrivetrain extends SubsystemBase implements Constants, RobotMap 
   private double rightOutput = 0;
 
   public KitDrivetrain() {
-    leftMaster = new VikingSRX(CAN_LEFT_FRONT, false, true, FeedbackDevice.CTRE_MagEncoder_Relative, dt_kF, dt_kP, dt_kI, dt_kD, 1250, 1250);
+    leftMaster = new VikingSRX(CAN_LEFT_FRONT, false, true, FeedbackDevice.CTRE_MagEncoder_Relative, dt_kF, dt_kP, dt_kI, dt_kD, 1250, 1250, metersPerRevolution);
     leftSlave = new VikingSPX(CAN_LEFT_BACK, leftMaster, false);
-    rightMaster = new VikingSRX(CAN_RIGHT_FRONT, true, true, FeedbackDevice.CTRE_MagEncoder_Relative, dt_kF, dt_kP, dt_kI, dt_kD, 1250, 1250);
+    rightMaster = new VikingSRX(CAN_RIGHT_FRONT, true, true, FeedbackDevice.CTRE_MagEncoder_Relative, dt_kF, dt_kP, dt_kI, dt_kD, 1250, 1250, metersPerRevolution);
     rightSlave = new VikingSPX(CAN_RIGHT_BACK, rightMaster, true);
 
     gyro = new AHRS(Port.kMXP);
@@ -90,9 +90,14 @@ public class KitDrivetrain extends SubsystemBase implements Constants, RobotMap 
     return rightMaster;
   }
 
-  public void motionProfile(BufferedTrajectoryPointStream left, BufferedTrajectoryPointStream right) {
-    leftMaster.motionProfileStart(left);
-    rightMaster.motionProfileStart(right);
+  public void initMotionBuffers(Double[][] left, Double[][] right) {
+    leftMaster.initMotionBuffer(left, left.length);
+    rightMaster.initMotionBuffer(right, right.length);
+  }
+
+  public void motionProfile() {
+    leftMaster.motionProfileStart();
+    rightMaster.motionProfileStart();
   }
 
   public void resetMotionProfile() {
