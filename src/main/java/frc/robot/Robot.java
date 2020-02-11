@@ -23,7 +23,7 @@ public class Robot extends TimedRobot implements RobotMap {
     drivetrain = KitDrivetrain.getInstance();
     driver = new Controller(CONTROLLER_DRIVER);
 
-    intakeConveyor = new Conveyor(CAN_INTAKE_LOWER, false, CAN_CONVEYOR_UPPER, false);
+    intakeConveyor = new Conveyor(CAN_INTAKE, false);
 
     OI.getInstance();
   }

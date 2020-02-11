@@ -6,40 +6,30 @@ import viking.controllers.rev.VikingMAX;
 
 public class Conveyor extends SubsystemBase implements Constants, RobotMap {
 
-  VikingMAX lowerMotor;
-  VikingMAX upperMotor;
+  VikingMAX motor;
 
-  public Conveyor(int lowerMotorID, boolean lowerInverted, int upperMotorID, boolean upperInverted) {
-    lowerMotor = new VikingMAX(lowerMotorID, lowerInverted);
-    upperMotor = new VikingMAX(upperMotorID, upperInverted);
+  public Conveyor(int motorID, boolean inverted) {
+    motor = new VikingMAX(motorID, inverted);
 
-    lowerMotor.setPIDF(INTAKE_KP, INTAKE_kI, INTAKE_KD, INTAKE_KF);
-    lowerMotor.setSmartMotion(INTAKE_MAX_VELOCITY, INTAKE_ACCELERATION);
-
-    upperMotor.setPIDF(INTAKE_KP, INTAKE_kI, INTAKE_KD, INTAKE_KF);
-    upperMotor.setSmartMotion(INTAKE_MAX_VELOCITY, INTAKE_ACCELERATION);
+    motor.setPIDF(INTAKE_KP, INTAKE_kI, INTAKE_KD, INTAKE_KF);
+    motor.setSmartMotion(INTAKE_MAX_VELOCITY, INTAKE_ACCELERATION);
   }
 
   public void setOutput(double speed) {
-    lowerMotor.percentOutput(speed);
-    upperMotor.percentOutput(speed); 
+    motor.percentOutput(speed);
   }
 
   public void setVelocity(double velocity) {
-    lowerMotor.smartVelocityControl(velocity);
+    motor.smartVelocityControl(velocity);
   }
 
   public void fullStop() {
-    lowerMotor.getSparkMAX().disable();
-    upperMotor.getSparkMAX().disable();
+    motor.getSparkMAX().disable();
   }
 
-  public VikingMAX getLowerMotor() {
-    return lowerMotor;
-  }
-
-  public VikingMAX getUpperMotor() {
-    return upperMotor;
+  public VikingMAX getMotor()
+  {
+    return motor;
   }
 
   @Override

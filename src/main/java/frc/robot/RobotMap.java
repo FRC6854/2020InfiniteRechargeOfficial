@@ -38,9 +38,6 @@ public interface RobotMap {
     public static final int CAN_RIGHT_BACK = 10;
 
     // TODO: Get CAN ID for motors
-    public static final int CAN_INTAKE_UPPER = 1;
-    public static final int CAN_INTAKE_LOWER = 2;
-   
-    public static final int CAN_CONVEYOR_UPPER = 3;
-    public static final int CAN_CONVEYOR_LOWER = 4; 
+    public static final int CAN_INTAKE = 1;
+    public static final int CAN_CONVEYOR = 2;
 }
