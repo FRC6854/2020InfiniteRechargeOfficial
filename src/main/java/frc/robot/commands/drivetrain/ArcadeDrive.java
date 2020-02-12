@@ -12,11 +12,6 @@ public class ArcadeDrive extends CommandBase {
 
     addRequirements(drivetrain);
   }
-  
-  @Override
-  public void initialize() {
-    System.out.println("arcade");
-  }
 
   @Override
   public void execute() {

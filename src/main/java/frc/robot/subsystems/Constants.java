@@ -37,9 +37,9 @@ public interface Constants {
 	public final double gyro_kD = 0.2;
 
 	/**
-	 * -------------------
+	 * --------------------
 	 *  INTAKE CONSTANTS
-	 * -------------------
+	 * --------------------
 	 */
 	public final double INTAKE_KP = 0;
 	public final double INTAKE_kI = 0;

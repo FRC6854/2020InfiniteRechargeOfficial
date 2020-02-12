@@ -4,6 +4,7 @@ import com.ctre.phoenix.motion.BufferedTrajectoryPointStream;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.kauailabs.navx.frc.AHRS;
 
+import viking.CSVFileManager;
 import viking.controllers.PIDController;
 import viking.controllers.ctre.VikingSPX;
 import viking.controllers.ctre.VikingSRX;
@@ -23,6 +24,9 @@ public class KitDrivetrain extends SubsystemBase implements Constants, RobotMap 
   private VikingSRX rightMaster;
   private VikingSPX rightSlave;
 
+  private VikingSRX shooterMaster;
+  private VikingSPX shooterSlave;
+
   private AHRS gyro;
 
   private PIDController gyroPID;
@@ -36,9 +40,16 @@ public class KitDrivetrain extends SubsystemBase implements Constants, RobotMap 
     rightMaster = new VikingSRX(CAN_RIGHT_FRONT, true, true, FeedbackDevice.CTRE_MagEncoder_Relative, dt_kF, dt_kP, dt_kI, dt_kD, 1250, 1250, metersPerRevolution);
     rightSlave = new VikingSPX(CAN_RIGHT_BACK, rightMaster, true);
 
+    shooterMaster = new VikingSRX(20, false);
+    shooterSlave = new VikingSPX(21, shooterMaster, false);
+  
     gyro = new AHRS(Port.kMXP);
 
     gyroPID = new PIDController(gyro_kP, gyro_kI, gyro_kD);
+  }
+
+  public void shoot(double value) {
+    shooterMaster.percentOutput(value);
   }
 
   public void arcadeDrive(double xSpeed, double zRotation) {
@@ -88,11 +99,6 @@ public class KitDrivetrain extends SubsystemBase implements Constants, RobotMap 
 
   public VikingSRX getRightMaster() {
     return rightMaster;
-  }
-
-  public void initMotionBuffers(Double[][] left, Double[][] right) {
-    leftMaster.initMotionBuffer(left, left.length);
-    rightMaster.initMotionBuffer(right, right.length);
   }
 
   public void motionProfile() {
@@ -169,11 +175,11 @@ public class KitDrivetrain extends SubsystemBase implements Constants, RobotMap 
     }
   }
 
-  public void turnDrive(double setAngle, double speed) {
-		turnDrive(setAngle, speed, 1);
+  public void turn(double setAngle, double speed) {
+		turn(setAngle, speed, 1);
 	}
 
-	public void turnDrive(double setAngle, double speed, double tolerance) {
+	public void turn(double setAngle, double speed, double tolerance) {
     double angle = gyroPID.calcPID(setAngle, getGyroAngle(), tolerance);
 
 		if(Math.abs(setAngle-getGyroAngle()) < tolerance){ 

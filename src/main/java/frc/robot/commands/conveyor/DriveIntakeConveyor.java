@@ -1,4 +1,4 @@
-package frc.robot.commands.drivetrain;
+package frc.robot.commands.conveyor;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
@@ -21,7 +21,9 @@ public class DriveIntakeConveyor extends CommandBase {
 
   @Override
   public void execute() {
-    intakeConveyor.setOutput(Robot.driver.getDriverLTrigger());
+    double output = Robot.driver.getDriverRTrigger() - Robot.driver.getDriverLTrigger();
+    
+    intakeConveyor.setOutput(output);
   }
 
   @Override

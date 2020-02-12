@@ -1,59 +1,39 @@
 package frc.robot.commands.drivetrain;
 
-import com.ctre.phoenix.motion.MotionProfileStatus;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-import frc.robot.subsystems.Constants;
 import frc.robot.subsystems.KitDrivetrain;
-
 import viking.ProfileBuffer;
 
 public class ProfileFollower extends CommandBase {
 
   private KitDrivetrain drivetrain = null;
 
-  private ProfileBuffer profile;
-  private MotionProfileStatus status;
+  private ProfileBuffer buffer = null;
 
-  StringBuilder output = new StringBuilder();
-
-  public ProfileFollower(String path) {
+  public ProfileFollower(ProfileBuffer buffer) {
     drivetrain = KitDrivetrain.getInstance();
 
-    profile = new ProfileBuffer("/home/lvuser/paths/" + path);
+    this.buffer = buffer;
 
     addRequirements(drivetrain);
   }
 
   @Override
   public void initialize() {
+    drivetrain.arcadeDrive(0, 0);
+
     drivetrain.zeroSensors();
     drivetrain.resetMotionProfile();
 
     System.out.println("Filling Talons...");
 
-    drivetrain.initMotionBuffers(profile.getLeftProfile(), profile.getRightProfile());
+    drivetrain.getLeftMaster().initMotionBuffer(buffer.getLeftProfile(), buffer.getLeftProfile().length);
+    drivetrain.getRightMaster().initMotionBuffer(buffer.getRightProfile(), buffer.getRightProfile().length);
 
     System.out.println("Executing the Profile");
 
     drivetrain.motionProfile();
-  }
-
-  @Override
-  public void execute() {
-    drivetrain.getLeftMaster().getTalonSRX().getMotionProfileStatus(status);
-
-    output.append("Number of points: ");
-    output.append(status.topBufferCnt);
-    output.append(" Output type: ");
-    output.append(status.outputEnable.name());
-    output.append(" Has underrun: ");
-    output.append(status.hasUnderrun);
-
-    System.out.println(output.toString());
-
-    output = new StringBuilder();
   }
 
   @Override

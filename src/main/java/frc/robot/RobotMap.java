@@ -14,7 +14,7 @@ public interface RobotMap {
      * "implements RobotMap" on the class declaration ex. Public class CoolRobot
      * implements RobotMap
      * 
-     * DO NOT HARDCODE NUMBERS IN CODE. ALWAYS UPDATE & REFERENCE THIS FILE. 
+     * DO NOT HARDCODE NUMBERS IN CODE. ALWAYS UPDATE & REFERENCE THIS FILE OR CONSTANTS. 
      * MAGIC NUMBERS SUCK!!!!
      * 
      */
