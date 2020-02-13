@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 import frc.robot.commands.conveyor.DriveIntakeConveyor;
 import frc.robot.subsystems.Conveyor;
-import frc.robot.subsystems.KitDrivetrain;
+// import frc.robot.subsystems.KitDrivetrain;
 import viking.Controller;
 import viking.OI;
 
@@ -31,12 +31,16 @@ public class Robot extends TimedRobot implements RobotMap {
   @Override
   public void autonomousInit() {
     CommandScheduler.getInstance().cancelAll();
-    CommandScheduler.getInstance().schedule(new DriveIntakeConveyor());
   }
 
   @Override
   public void autonomousPeriodic() {
     CommandScheduler.getInstance().run();
+  }
+
+  @Override
+  public void teleopInit() {
+    CommandScheduler.getInstance().cancelAll();
   }
 
   @Override

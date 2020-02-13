@@ -1,10 +1,8 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motion.BufferedTrajectoryPointStream;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.kauailabs.navx.frc.AHRS;
 
-import viking.CSVFileManager;
 import viking.controllers.PIDController;
 import viking.controllers.ctre.VikingSPX;
 import viking.controllers.ctre.VikingSRX;
@@ -24,9 +22,6 @@ public class KitDrivetrain extends SubsystemBase implements Constants, RobotMap 
   private VikingSRX rightMaster;
   private VikingSPX rightSlave;
 
-  private VikingSRX shooterMaster;
-  private VikingSPX shooterSlave;
-
   private AHRS gyro;
 
   private PIDController gyroPID;
@@ -39,17 +34,10 @@ public class KitDrivetrain extends SubsystemBase implements Constants, RobotMap 
     leftSlave = new VikingSPX(CAN_LEFT_BACK, leftMaster, false);
     rightMaster = new VikingSRX(CAN_RIGHT_FRONT, true, true, FeedbackDevice.CTRE_MagEncoder_Relative, dt_kF, dt_kP, dt_kI, dt_kD, 1250, 1250, metersPerRevolution);
     rightSlave = new VikingSPX(CAN_RIGHT_BACK, rightMaster, true);
-
-    shooterMaster = new VikingSRX(20, false);
-    shooterSlave = new VikingSPX(21, shooterMaster, false);
   
     gyro = new AHRS(Port.kMXP);
 
     gyroPID = new PIDController(gyro_kP, gyro_kI, gyro_kD);
-  }
-
-  public void shoot(double value) {
-    shooterMaster.percentOutput(value);
   }
 
   public void arcadeDrive(double xSpeed, double zRotation) {
