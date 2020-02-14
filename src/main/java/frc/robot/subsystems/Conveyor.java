@@ -11,8 +11,8 @@ public class Conveyor extends SubsystemBase implements Constants, RobotMap {
   public Conveyor(int motorID, boolean inverted) {
     motor = new VikingMAX(motorID, inverted);
 
-    motor.setPIDF(INTAKE_KP, INTAKE_kI, INTAKE_KD, INTAKE_KF);
-    motor.setSmartMotion(INTAKE_MAX_VELOCITY, INTAKE_ACCELERATION);
+    motor.setPIDF(CONVEYOR_KP, CONVEYOR_kI, CONVEYOR_KD, CONVEYOR_KF);
+    motor.setSmartMotion(CONVEYOR_MAX_VELOCITY, CONVEYOR_ACCELERATION);
   }
 
   public void setOutput(double speed) {

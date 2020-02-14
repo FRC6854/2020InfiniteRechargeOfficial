@@ -38,14 +38,14 @@ public interface Constants {
 
 	/**
 	 * --------------------
-	 *  INTAKE CONSTANTS
+	 *  CONVEYOR CONSTANTS
 	 * --------------------
 	 */
-	public final double INTAKE_KP = 0;
-	public final double INTAKE_kI = 0;
-	public final double INTAKE_KD = 0;
-	public final double INTAKE_KF = 0;
-	public final double INTAKE_ACCELERATION = 0;
-	public final double INTAKE_MAX_VELOCITY = 0;
+	public final double CONVEYOR_KP = 0;
+	public final double CONVEYOR_kI = 0;
+	public final double CONVEYOR_KD = 0;
+	public final double CONVEYOR_KF = 0;
+	public final double CONVEYOR_ACCELERATION = 0;
+	public final double CONVEYOR_MAX_VELOCITY = 0;
 
 }

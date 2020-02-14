@@ -11,10 +11,10 @@ public interface RobotMap {
      * 
      * to reference data from RobotMap include
      * 
-     * "implements RobotMap" on the class declaration ex. Public class CoolRobot
-     * implements RobotMap
+     * "implements RobotMap" on the class declaration ex. 
+     * public class CoolRobot implements RobotMap
      * 
-     * DO NOT HARDCODE NUMBERS IN CODE. ALWAYS UPDATE & REFERENCE THIS FILE OR CONSTANTS. 
+     * DO NOT HARDCODE NUMBERS IN CODE. ALWAYS UPDATE & REFERENCE TO THIS FILE OR CONSTANTS. 
      * MAGIC NUMBERS SUCK!!!!
      * 
      */
@@ -25,6 +25,20 @@ public interface RobotMap {
      * each match that the order is correct.
      */
 
+    /**
+     * ROBOT MAP
+     * 
+     *   Shooter
+     *    BACK
+     * |||    |||
+     * ||||||||||
+     * ||||||||||
+     * ||||||||||
+     * |||    |||
+     *    FRONT
+     *  Conveyor
+     */
+
     // Driver Controller
     public static final int CONTROLLER_DRIVER = 0;
 
@@ -32,12 +46,13 @@ public interface RobotMap {
      * Motor Controllers: Specify the connection type (CAN, PWM) and
      * location/subsystem in the constant
      */
-    public static final int CAN_LEFT_FRONT = 11;
+
+    // UPDATE THE CAD IDs
+    public static final int CAN_LEFT_FRONT = 20;
     public static final int CAN_RIGHT_FRONT = 13;
     public static final int CAN_LEFT_BACK = 12;
     public static final int CAN_RIGHT_BACK = 10;
 
-    // TODO: Get CAN ID for motors
     public static final int CAN_INTAKE = 1;
     public static final int CAN_CONVEYOR = 2;
 }
