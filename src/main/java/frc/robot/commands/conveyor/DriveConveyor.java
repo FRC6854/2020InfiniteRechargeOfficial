@@ -4,31 +4,31 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.subsystems.Conveyor;
 
-public class DriveIntakeConveyor extends CommandBase {
+public class DriveConveyor extends CommandBase {
   
-  Conveyor intakeConveyor = null;
+  Conveyor conveyor = null;
 
-  public DriveIntakeConveyor() {
-    intakeConveyor = Robot.intakeConveyor;
+  public DriveConveyor(Conveyor motor) {
+    this.conveyor = motor;
 
-    addRequirements(intakeConveyor);
+    addRequirements(conveyor);
   }
 
   @Override
   public void initialize() {
-    intakeConveyor.fullStop();
+    conveyor.fullStop();
   }
 
   @Override
   public void execute() {
     double output = Robot.driver.getControllerRTrigger() - Robot.driver.getControllerLTrigger();
     
-    intakeConveyor.setOutput(output);
+    conveyor.setOutput(output);
   }
 
   @Override
   public void end(boolean interrupted) {
-    intakeConveyor.fullStop();
+    conveyor.fullStop();
   }
 
   @Override

@@ -11,7 +11,7 @@ public class Shooter extends SubsystemBase implements Constants, RobotMap {
   public Shooter(int motorID, boolean inverted) {
     motor = new VikingMAX(motorID, inverted);
 
-    motor.setPIDF(CONVEYOR_KP, CONVEYOR_kI, CONVEYOR_KD, CONVEYOR_KF);
+    motor.setPIDF(CONVEYOR_kP, CONVEYOR_kI, CONVEYOR_kD, CONVEYOR_kF);
     motor.setSmartMotion(CONVEYOR_MAX_VELOCITY, CONVEYOR_ACCELERATION);
   }
 

@@ -47,13 +47,20 @@ public interface RobotMap {
      * location/subsystem in the constant
      */
 
-    // UPDATE THE CAD IDs
+    // DRIVETRAIN
     public static final int CAN_LEFT_FRONT = 20;
     public static final int CAN_RIGHT_FRONT = 13;
     public static final int CAN_LEFT_BACK = 12;
     public static final int CAN_RIGHT_BACK = 10;
 
-    public static final int CAN_INTAKE = 1;
-    public static final int CAN_CONVEYOR = 3;
-    public static final int CAN_CLIMBER = 2;
+    // SHOOTER
+    public static final int CAN_TOP_SHOOTER = 2;
+    public static final int CAN_BOTTOM_SHOOTER = 5;
+
+    // INTAKE
+    public static final int CAN_INTAKE_CONVEYOR = 1;
+    public static final int CAN_UPPER_CONVEYOR = 4;
+
+    // CONVEYOR
+    public static final int CAN_CLIMBER = 3;
 }

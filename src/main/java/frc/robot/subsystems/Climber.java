@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 import viking.controllers.rev.VikingMAX;
+import frc.robot.commands.climber.DriveClimber;
 
 public class Climber extends SubsystemBase implements Constants, RobotMap {
   VikingMAX motor;
@@ -12,7 +13,7 @@ public class Climber extends SubsystemBase implements Constants, RobotMap {
   public Climber() {
     motor = new VikingMAX(CAN_CLIMBER, false);
 
-    motor.setPIDF(CLIMBER_KP, CLIMBER_KI, CLIMBER_KD, CLIMBER_KF);
+    motor.setPIDF(CLIMBER_kP, CLIMBER_KI, CLIMBER_kD, CLIMBER_kF);
     motor.setSmartMotion(CLIMBER_MAX_VELOCITY, CLIMBER_ACCELERATION);
   }
 

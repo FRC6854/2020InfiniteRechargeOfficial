@@ -30,22 +30,22 @@ public class KitDrivetrain extends SubsystemBase implements Constants, RobotMap 
   private double rightOutput = 0;
 
   public KitDrivetrain() {
-    leftMaster = new VikingSRX(CAN_LEFT_FRONT, false, true, FeedbackDevice.CTRE_MagEncoder_Relative, dt_kF, dt_kP, dt_kI, dt_kD, 1250, 1250, metersPerRevolution);
+    leftMaster = new VikingSRX(CAN_LEFT_FRONT, false, true, FeedbackDevice.CTRE_MagEncoder_Relative, DRIVETRAIN_kF, DRIVETRAIN_kP, DRIVETRAIN_kI, DRIVETRAIN_kD, 1250, 1250, DRIVETRAIN_kMetersPerRevolution);
     leftSlave = new VikingSPX(CAN_LEFT_BACK, leftMaster, false);
-    rightMaster = new VikingSRX(CAN_RIGHT_FRONT, true, true, FeedbackDevice.CTRE_MagEncoder_Relative, dt_kF, dt_kP, dt_kI, dt_kD, 1250, 1250, metersPerRevolution);
+    rightMaster = new VikingSRX(CAN_RIGHT_FRONT, true, true, FeedbackDevice.CTRE_MagEncoder_Relative, DRIVETRAIN_kF, DRIVETRAIN_kP, DRIVETRAIN_kI, DRIVETRAIN_kD, 1250, 1250, DRIVETRAIN_kMetersPerRevolution);
     rightSlave = new VikingSPX(CAN_RIGHT_BACK, rightMaster, true);
   
     gyro = new AHRS(Port.kMXP);
 
-    gyroPID = new PIDController(gyro_kP, gyro_kI, gyro_kD);
+    gyroPID = new PIDController(GYRO_kP, GYRO_kI, GYRO_kD);
   }
 
   public void arcadeDrive(double xSpeed, double zRotation) {
     zRotation = limit(zRotation);
-    zRotation = applyDeadband(zRotation, dt_kDeadband);
+    zRotation = applyDeadband(zRotation, DRIVETRAIN_kDeadband);
 
     xSpeed = limit(xSpeed);
-    xSpeed = applyDeadband(xSpeed, dt_kDeadband);
+    xSpeed = applyDeadband(xSpeed, DRIVETRAIN_kDeadband);
 
     // Square the inputs (while preserving the sign) to increase fine control
     // while permitting full power.

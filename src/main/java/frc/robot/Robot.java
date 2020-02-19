@@ -2,8 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-
-import frc.robot.commands.conveyor.DriveIntakeConveyor;
+import frc.robot.commands.conveyor.DriveConveyor;
 import frc.robot.commands.shooter.DriveShooter;
 import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.KitDrivetrain;
@@ -16,6 +15,7 @@ public class Robot extends TimedRobot implements RobotMap {
   public static Controller driver = null;
 
   public static Conveyor intakeConveyor = null;
+  public static Conveyor upperConveyor = null;
 
   public static Shooter topShooter = null;
   public static Shooter bottomShooter = null;
@@ -28,11 +28,13 @@ public class Robot extends TimedRobot implements RobotMap {
 
     drivetrain = KitDrivetrain.getInstance();
 
-    intakeConveyor = new Conveyor(1, false);
-    topShooter = new Shooter(2, false);
-    bottomShooter = new Shooter(5, true);
+    intakeConveyor = new Conveyor(CAN_INTAKE_CONVEYOR, false);
+    upperConveyor = new Conveyor(CAN_UPPER_CONVEYOR, false);
+    topShooter = new Shooter(CAN_TOP_SHOOTER, false);
+    bottomShooter = new Shooter(CAN_BOTTOM_SHOOTER, true);
 
-    intakeConveyor.setDefaultCommand(new DriveIntakeConveyor());
+    intakeConveyor.setDefaultCommand(new DriveConveyor(intakeConveyor));
+    upperConveyor.setDefaultCommand(new DriveConveyor(upperConveyor));
     topShooter.setDefaultCommand(new DriveShooter(topShooter));
     bottomShooter.setDefaultCommand(new DriveShooter(bottomShooter));
 
