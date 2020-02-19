@@ -4,15 +4,21 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 import frc.robot.commands.conveyor.DriveIntakeConveyor;
+import frc.robot.commands.shooter.DriveShooter;
 import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.KitDrivetrain;
+import frc.robot.subsystems.Shooter;
 import viking.Controller;
 import viking.OI;
 
 public class Robot extends TimedRobot implements RobotMap {
 
   public static Controller driver = null;
+
   public static Conveyor intakeConveyor = null;
+
+  public static Shooter topShooter = null;
+  public static Shooter bottomShooter = null;
 
   private static KitDrivetrain drivetrain = null;
 
@@ -22,8 +28,13 @@ public class Robot extends TimedRobot implements RobotMap {
 
     drivetrain = KitDrivetrain.getInstance();
 
-    intakeConveyor = new Conveyor(CAN_INTAKE, false);
+    intakeConveyor = new Conveyor(1, false);
+    topShooter = new Shooter(2, false);
+    bottomShooter = new Shooter(5, true);
+
     intakeConveyor.setDefaultCommand(new DriveIntakeConveyor());
+    topShooter.setDefaultCommand(new DriveShooter(topShooter));
+    bottomShooter.setDefaultCommand(new DriveShooter(bottomShooter));
 
     OI.getInstance();
   }

@@ -21,7 +21,7 @@ public class DriveIntakeConveyor extends CommandBase {
 
   @Override
   public void execute() {
-    double output = Robot.driver.getDriverRTrigger() - Robot.driver.getDriverLTrigger();
+    double output = Robot.driver.getControllerRTrigger() - Robot.driver.getControllerLTrigger();
     
     intakeConveyor.setOutput(output);
   }

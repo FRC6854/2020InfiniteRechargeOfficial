@@ -15,6 +15,6 @@ public class ArcadeDrive extends CommandBase {
 
   @Override
   public void execute() {
-    drivetrain.arcadeDrive(Robot.driver.getDriverLeftStickY(), Robot.driver.getDriverRightStickX());
+    drivetrain.arcadeDrive(Robot.driver.getControllerLeftStickY(), Robot.driver.getControllerRightStickX());
   }
 }

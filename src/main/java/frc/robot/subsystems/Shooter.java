@@ -4,11 +4,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 import viking.controllers.rev.VikingMAX;
 
-public class Conveyor extends SubsystemBase implements Constants, RobotMap {
+public class Shooter extends SubsystemBase implements Constants, RobotMap {
 
   VikingMAX motor;
 
-  public Conveyor(int motorID, boolean inverted) {
+  public Shooter(int motorID, boolean inverted) {
     motor = new VikingMAX(motorID, inverted);
 
     motor.setPIDF(CONVEYOR_KP, CONVEYOR_kI, CONVEYOR_KD, CONVEYOR_KF);
