@@ -48,4 +48,15 @@ public interface Constants {
 	public final double CONVEYOR_ACCELERATION = 0;
 	public final double CONVEYOR_MAX_VELOCITY = 0;
 
+	/**
+	 * -----------------
+	 * CLIMBER CONSTANTS
+	 * -----------------
+	 */
+	public final double CLIMBER_KP = 0;
+	public final double CLIMBER_KI = 0;
+	public final double CLIMBER_KD = 0;
+	public final double CLIMBER_KF = 0;
+	public final double CLIMBER_ACCELERATION = 0;
+	public final double CLIMBER_MAX_VELOCITY = 0;
 }
