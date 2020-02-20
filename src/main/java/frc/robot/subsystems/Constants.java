@@ -26,6 +26,24 @@ public interface Constants {
 	public final double GYRO_kD = 0.2;
 
 	/**
+	 * -------------------------
+	 * 	VISION AIMING CONSTANTS
+	 * -------------------------
+	 */
+	public final double AIM_kP = 0.05;
+	public final double AIM_kI = 0.0;
+	public final double AIM_kD = 0.0;
+
+	public final double AIM_DISTANCE_kP = 0.05;
+	public final double AIM_DISTANCE_kI = 0.0;
+	public final double AIM_DISTANCE_kD = 0.0;
+
+	public final double AIM_kMinCommand = 0.05;
+	public final double AIM_kMaxCommand = 0.75;
+
+	public final double AIM_kThreshold = 0.5;
+
+	/**
 	 * --------------------
 	 *  CONVEYOR CONSTANTS
 	 * --------------------
