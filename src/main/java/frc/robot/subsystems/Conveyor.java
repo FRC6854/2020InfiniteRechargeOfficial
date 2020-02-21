@@ -40,10 +40,6 @@ public class Conveyor extends SubsystemBase implements Constants, RobotMap {
     return upperConveyor;
   }
 
-  @Override
-  public void periodic() {
-  }
-
   public static Conveyor getInstance() {
     if (instance == null) {
       instance = new Conveyor();

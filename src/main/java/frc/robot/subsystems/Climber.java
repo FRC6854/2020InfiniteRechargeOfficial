@@ -37,10 +37,6 @@ public class Climber extends SubsystemBase implements Constants, RobotMap {
     return motor;
   }
 
-  @Override
-  public void periodic() {
-  }
-
   public static Climber getInstance(){
     if (instance == null) {
       instance = new Climber();

@@ -54,10 +54,6 @@ public class Shooter extends SubsystemBase implements Constants, RobotMap {
     return bottomShooter;
   }
 
-  @Override
-  public void periodic() {
-  }
-
   public static Shooter getInstance() {
     if (instance == null) {
       instance = new Shooter();
