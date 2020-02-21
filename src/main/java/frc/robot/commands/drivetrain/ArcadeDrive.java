@@ -33,7 +33,7 @@ public class ArcadeDrive extends CommandBase {
   @Override
   public void execute() {
     if (Robot.driver.getControllerAButton() == true) {
-      // Setup Limelight for targeting
+      /*// Setup Limelight for targeting
       limelight.setLEDMode(LightMode.ON);
       limelight.setDriverMode(false);
 
@@ -59,7 +59,7 @@ public class ArcadeDrive extends CommandBase {
       LEDController.getInstance().setMode(LEDMode.VISION);
 
       // Drive using the output values
-      drivetrain.arcadeDrive(pidDistance, pidAim);
+      drivetrain.arcadeDrive(pidDistance, pidAim);*/
     }
     else {
       limelight.setLEDMode(LightMode.OFF);

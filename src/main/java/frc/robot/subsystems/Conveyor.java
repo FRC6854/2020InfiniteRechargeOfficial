@@ -6,32 +6,48 @@ import viking.controllers.rev.VikingMAX;
 
 public class Conveyor extends SubsystemBase implements Constants, RobotMap {
 
-  VikingMAX motor;
+  private static Conveyor instance = null;
 
-  public Conveyor(int motorID, boolean inverted) {
-    motor = new VikingMAX(motorID, inverted);
+  VikingMAX intakeConveyor;
+  VikingMAX upperConveyor;
 
-    motor.setPIDF(CONVEYOR_kP, CONVEYOR_kI, CONVEYOR_kD, CONVEYOR_kF);
-    motor.setSmartMotion(CONVEYOR_MAX_VELOCITY, CONVEYOR_ACCELERATION);
+  private Conveyor() {
+    intakeConveyor = new VikingMAX(CAN_INTAKE_CONVEYOR, false);
+    upperConveyor = new VikingMAX(CAN_UPPER_CONVEYOR, true);
   }
 
-  public void setOutput(double speed) {
-    motor.percentOutput(speed);
+  public void setOutputIntake(double speed) {
+    intakeConveyor.percentOutput(speed);
   }
 
-  public void setVelocity(double velocity) {
-    motor.smartVelocityControl(velocity);
+  public void setOutputUpper(double speed) {
+    upperConveyor.percentOutput(speed);
   }
 
-  public void fullStop() {
-    motor.getSparkMAX().disable();
+  public void fullStopIntake() {
+    intakeConveyor.getSparkMAX().disable();
   }
 
-  public VikingMAX getMotor() {
-    return motor;
+  public void fullStopUpper() {
+    upperConveyor.getSparkMAX().disable();
+  }
+
+  public VikingMAX getIntakeMotor() {
+    return intakeConveyor;
+  }
+
+  public VikingMAX getUpperMotor() {
+    return upperConveyor;
   }
 
   @Override
   public void periodic() {
+  }
+
+  public static Conveyor getInstance() {
+    if (instance == null) {
+      instance = new Conveyor();
+    }
+    return instance;
   }
 }

@@ -6,32 +6,62 @@ import viking.controllers.rev.VikingMAX;
 
 public class Shooter extends SubsystemBase implements Constants, RobotMap {
 
-  VikingMAX motor;
+  private static Shooter instance = null;
 
-  public Shooter(int motorID, boolean inverted) {
-    motor = new VikingMAX(motorID, inverted);
+  VikingMAX topShooter = null;
+  VikingMAX bottomShooter = null;
 
-    motor.setPIDF(CONVEYOR_kP, CONVEYOR_kI, CONVEYOR_kD, CONVEYOR_kF);
-    motor.setSmartMotion(CONVEYOR_MAX_VELOCITY, CONVEYOR_ACCELERATION);
+  private Shooter() {
+    topShooter = new VikingMAX(CAN_TOP_SHOOTER, false);
+    bottomShooter = new VikingMAX(CAN_BOTTOM_SHOOTER, true);
+
+    topShooter.setPIDF(CONVEYOR_kP, CONVEYOR_kI, CONVEYOR_kD, CONVEYOR_kF);
+    topShooter.setSmartMotion(CONVEYOR_MAX_VELOCITY, CONVEYOR_ACCELERATION);
+
+    bottomShooter.setPIDF(CONVEYOR_kP, CONVEYOR_kI, CONVEYOR_kD, CONVEYOR_kF);
+    bottomShooter.setSmartMotion(CONVEYOR_MAX_VELOCITY, CONVEYOR_ACCELERATION);
   }
 
-  public void setOutput(double speed) {
-    motor.percentOutput(speed);
+  public void setOutputTop(double speed) {
+    topShooter.percentOutput(speed);
   }
 
-  public void setVelocity(double velocity) {
-    motor.smartVelocityControl(velocity);
+  public void setOutputBottom(double speed) {
+    bottomShooter.percentOutput(speed);
   }
 
-  public void fullStop() {
-    motor.getSparkMAX().disable();
+  public void setVelocityTop(double velocity) {
+    topShooter.velocityControl(velocity);
   }
 
-  public VikingMAX getMotor() {
-    return motor;
+  public void setVelocityBottom(double velocity) {
+    bottomShooter.velocityControl(velocity);
+  }
+
+  public void fullStopTop() {
+    topShooter.getSparkMAX().disable();
+  }
+
+  public void fullStopBottom() {
+    bottomShooter.getSparkMAX().disable();
+  }
+
+  public VikingMAX getTopMotor() {
+    return topShooter;
+  }
+
+  public VikingMAX getBottomMotor() {
+    return bottomShooter;
   }
 
   @Override
   public void periodic() {
+  }
+
+  public static Shooter getInstance() {
+    if (instance == null) {
+      instance = new Shooter();
+    }
+    return instance;
   }
 }

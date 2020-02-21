@@ -14,11 +14,8 @@ public class Robot extends TimedRobot implements RobotMap {
 
   public static Controller driver = null;
 
-  public static Conveyor intakeConveyor = null;
-  public static Conveyor upperConveyor = null;
-
-  public static Shooter topShooter = null;
-  public static Shooter bottomShooter = null;
+  public static Conveyor conveyor = null;
+  public static Shooter shooter = null;
 
   private static KitDrivetrain drivetrain = null;
 
@@ -28,15 +25,11 @@ public class Robot extends TimedRobot implements RobotMap {
 
     drivetrain = KitDrivetrain.getInstance();
 
-    intakeConveyor = new Conveyor(CAN_INTAKE_CONVEYOR, false);
-    upperConveyor = new Conveyor(CAN_UPPER_CONVEYOR, false);
-    topShooter = new Shooter(CAN_TOP_SHOOTER, false);
-    bottomShooter = new Shooter(CAN_BOTTOM_SHOOTER, true);
-
-    intakeConveyor.setDefaultCommand(new DriveConveyor(intakeConveyor));
-    upperConveyor.setDefaultCommand(new DriveConveyor(upperConveyor));
-    topShooter.setDefaultCommand(new DriveShooter(topShooter));
-    bottomShooter.setDefaultCommand(new DriveShooter(bottomShooter));
+    conveyor = Conveyor.getInstance();
+    shooter = Shooter.getInstance();
+    
+    conveyor.setDefaultCommand(new DriveConveyor());
+    shooter.setDefaultCommand(new DriveShooter());
 
     OI.getInstance();
   }
