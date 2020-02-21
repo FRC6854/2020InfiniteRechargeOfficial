@@ -8,8 +8,8 @@ public class Conveyor extends SubsystemBase implements Constants, RobotMap {
 
   private static Conveyor instance = null;
 
-  VikingMAX intakeConveyor;
-  VikingMAX upperConveyor;
+  private VikingMAX intakeConveyor;
+  private VikingMAX upperConveyor;
 
   private Conveyor() {
     intakeConveyor = new VikingMAX(CAN_INTAKE_CONVEYOR, false);

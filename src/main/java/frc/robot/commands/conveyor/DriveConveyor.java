@@ -26,8 +26,14 @@ public class DriveConveyor extends CommandBase {
 
     if (Robot.driver.getControllerLBumper() == true || Robot.driver.getControllerRBumper() == true) {
       conveyor.setOutputUpper(output);
-    } else {
-      conveyor.fullStopUpper();
+    } 
+    else {
+      if (output == 0) {
+        conveyor.fullStopUpper();
+      }
+      else {
+        conveyor.setOutputUpper(output / 10);
+      }
     }
   }
 

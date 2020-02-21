@@ -8,8 +8,8 @@ public class Shooter extends SubsystemBase implements Constants, RobotMap {
 
   private static Shooter instance = null;
 
-  VikingMAX topShooter = null;
-  VikingMAX bottomShooter = null;
+  private VikingMAX topShooter = null;
+  private VikingMAX bottomShooter = null;
 
   private Shooter() {
     topShooter = new VikingMAX(CAN_TOP_SHOOTER, false);
@@ -36,6 +36,27 @@ public class Shooter extends SubsystemBase implements Constants, RobotMap {
 
   public void setVelocityBottom(double velocity) {
     bottomShooter.velocityControl(velocity);
+  }
+
+  public double getVelocityTop() {
+    return topShooter.getVelocity();
+  }
+
+  public double getVelocityBottom() {
+    return bottomShooter.getVelocity();
+  }
+
+  public double getOutputCurrentTop() {
+    return topShooter.getOutput();
+  }
+
+  public double getOutputCurrentBottom() {
+    return bottomShooter.getOutput();
+  }
+
+  public void fullStop() {
+    fullStopTop();
+    fullStopBottom();
   }
 
   public void fullStopTop() {

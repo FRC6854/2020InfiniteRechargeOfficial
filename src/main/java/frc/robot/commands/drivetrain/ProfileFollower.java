@@ -26,12 +26,8 @@ public class ProfileFollower extends CommandBase {
     drivetrain.zeroSensors();
     drivetrain.resetMotionProfile();
 
-    System.out.println("Filling Talons...");
-
     drivetrain.getLeftMaster().initMotionBuffer(buffer.getLeftProfile(), buffer.getLeftProfile().length);
     drivetrain.getRightMaster().initMotionBuffer(buffer.getRightProfile(), buffer.getRightProfile().length);
-
-    System.out.println("Executing the Profile");
 
     drivetrain.motionProfile();
   }
@@ -43,10 +39,6 @@ public class ProfileFollower extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
-    if (interrupted == true) {
-      System.out.println("Interrupted");
-    }
-    System.out.println("Done MP driving!");
     drivetrain.resetMotionProfile();
   }
 }
