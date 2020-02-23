@@ -21,8 +21,27 @@ public class DriveClimber extends CommandBase {
 
   @Override
   public void execute() {
-    double output = Robot.driver.getControllerRTrigger() - Robot.driver.getControllerLTrigger();
-    climber.setOutput(output);
+    // TODO: Revise Controls
+    
+    if(Robot.driver.getControllerAButtonPressed()) {
+      climber.setLiftAngle(90);
+    }
+
+    if(Robot.driver.getControllerBButtonPressed()) {
+      climber.setLiftAngle(0);
+    }
+
+    if(Robot.driver.getControllerXButtonPressed()) {
+      climber.setLiftAngle(5);
+    }
+
+    if (Robot.driver.getControllerYButtonPressed()) {
+      climber.setWinchOutput(1);
+    }
+
+    if (Robot.driver.getControllerStartButtonPressed()) {
+      climber.setWinchOutput(-1);
+    }
   }
 
   @Override

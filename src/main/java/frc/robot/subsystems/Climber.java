@@ -1,47 +1,72 @@
 package frc.robot.subsystems;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 import viking.controllers.rev.VikingMAX;
-import frc.robot.commands.climber.DriveClimber;
 
 public class Climber extends SubsystemBase implements Constants, RobotMap {
-  VikingMAX motor;
-
-  private static Climber instance = null;
+  
+  VikingMAX winch;
+  VikingMAX lift;
+  
+  static Climber instance = null;
 
   public Climber() {
-    motor = new VikingMAX(CAN_CLIMBER, false);
+    lift = new VikingMAX(CAN_LIFT, false);
+    winch = new VikingMAX(CAN_WINCH, false);
 
-    motor.setPIDF(CLIMBER_kP, CLIMBER_KI, CLIMBER_kD, CLIMBER_kF);
-    motor.setSmartMotion(CLIMBER_MAX_VELOCITY, CLIMBER_ACCELERATION);
+    lift.setPIDF(LIFT_kP, LIFT_kI, LIFT_kD, LIFT_kF);
+    lift.setSmartMotion(LIFT_MAX_VELOCITY, LIFT_ACCELERATION);
+
+    winch.setPIDF(WINCH_kP, WINCH_kI, WINCH_kD, WINCH_kF);
+    winch.setSmartMotion(WINCH_MAX_VELOCITY, WINCH_ACCELERATION);
   }
 
-  public void setOutput(double speed) {
-    motor.percentOutput(speed);
+  public void setLiftAngle(double angle) {
+    lift.positionControl(angleToTicks(angle));
   }
 
-  public void setVelocity(double velocity) {
-    motor.smartVelocityControl(velocity);
+  public void setLiftOutput(double output) {
+    lift.percentOutput(output);
   }
 
-  public void setPosition(double position) {
-    motor.smartPositionControl(position);
+  public void setWinchOutput(double output) {
+    winch.percentOutput(output);
   }
 
   public void fullStop() {
-    motor.getSparkMAX().disable();
+    lift.getSparkMAX().disable();
+    winch.getSparkMAX().disable();
   }
 
-  public VikingMAX getMotor() {
-    return motor;
+  public double getLiftOutput() {
+    return lift.getOutput();
   }
 
-  public static Climber getInstance(){
-    if (instance == null) {
+  public double getWinchOutput() {
+    return winch.getOutput();
+  }
+
+  public double getLiftAngle() {
+    return ticksToAngle(lift.getPosition());
+  }
+
+  private double angleToTicks(double angle) {
+    return ((LIFT_TICKS_PER_REV * angle) / 360);
+  }
+
+  private double ticksToAngle(double ticks) {
+    return (360 * ticks) / LIFT_TICKS_PER_REV;
+  }
+
+  @Override
+  public void periodic() {
+  }
+
+  public static Climber getInstance() {
+    if(instance == null) {
       instance = new Climber();
-      instance.setDefaultCommand(new DriveClimber());
+      //instance.setDefaultCommand();
     }
-    return instance;
+		return instance;
   }
 }

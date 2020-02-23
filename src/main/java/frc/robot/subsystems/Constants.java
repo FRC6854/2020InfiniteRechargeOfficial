@@ -72,10 +72,19 @@ public interface Constants {
 	 *   CLIMBER CONSTANTS
 	 * --------------------
 	 */
-	public final double CLIMBER_kP = 0;
-	public final double CLIMBER_KI = 0;
-	public final double CLIMBER_kD = 0;
-	public final double CLIMBER_kF = 0;
-	public final double CLIMBER_ACCELERATION = 0;
-	public final double CLIMBER_MAX_VELOCITY = 0;
+	public final double LIFT_kP = 0;
+	public final double LIFT_kI = 0;
+	public final double LIFT_kD = 0;
+	public final double LIFT_kF = 0;
+	public final double LIFT_ACCELERATION = 0;
+	public final double LIFT_MAX_VELOCITY = 0;
+
+	public final int LIFT_TICKS_PER_REV = 64;
+
+	public final double WINCH_kP = 0;
+	public final double WINCH_kI = 0;
+	public final double WINCH_kD = 0;
+	public final double WINCH_kF = 0;
+	public final double WINCH_ACCELERATION = 0;
+	public final double WINCH_MAX_VELOCITY = 0;
 }
