@@ -20,17 +20,11 @@ public interface RobotMap {
      */
 
     /**
-     * Controllers: Number in drivestation NOTE: Position in ds list can be locked
-     * inside drivestation Make sure this is done before each match and check before
-     * each match that the order is correct.
-     */
-
-    /**
      * ROBOT MAP
      * 
      *   Shooter
      *    BACK
-     * |||    |||
+     * ||||||||||
      * ||||||||||
      * ||||||||||
      * ||||||||||
@@ -38,10 +32,15 @@ public interface RobotMap {
      *    FRONT
      *  Conveyor
      */
-
-    // Driver Controller
+    
+     /**
+     * Controllers: Number in drivestation NOTE: Position in ds list can be locked
+     * inside drivestation Make sure this is done before each match and check before
+     * each match that the order is correct.
+     */
     public static final int CONTROLLER_DRIVER = 0;
-
+    public static final int CONTROLLER_OPERATOR = 1;
+    
     /**
      * Motor Controllers: Specify the connection type (CAN, PWM) and
      * location/subsystem in the constant
@@ -64,5 +63,6 @@ public interface RobotMap {
     // CONVEYOR
     public static final int CAN_WINCH = 0;
     public static final int CAN_LIFT = 0;
+    public static final int CAN_MASS_SHIFTER = 0;
 
 }

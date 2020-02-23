@@ -15,6 +15,7 @@ import viking.OI;
 public class Robot extends TimedRobot implements RobotMap {
 
   public static Controller driver = null;
+  public static Controller operator = null;
 
   public static Conveyor conveyor = null;
   public static Shooter shooter = null;
@@ -24,7 +25,8 @@ public class Robot extends TimedRobot implements RobotMap {
   @Override
   public void robotInit() {
     driver = new Controller(CONTROLLER_DRIVER);
-
+    operator = new Controller(CONTROLLER_OPERATOR);
+    
     drivetrain = KitDrivetrain.getInstance();
 
     conveyor = Conveyor.getInstance();
