@@ -21,8 +21,9 @@ public class DriveClimber extends CommandBase {
 
   @Override
   public void execute() {
-    double output = Robot.driver.getControllerRTrigger() - Robot.driver.getControllerLTrigger();
-    climber.setOutput(output);
+    climber.setLiftOutput(Robot.operator.getControllerLeftStickY());
+    climber.setWinchOutput(Robot.operator.getControllerRightStickY());
+    climber.setShifterOutput(Robot.operator.getControllerLeftStickY());
   }
 
   @Override
