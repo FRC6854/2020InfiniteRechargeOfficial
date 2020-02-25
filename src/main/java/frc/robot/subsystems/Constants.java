@@ -60,9 +60,11 @@ public interface Constants {
 	 *   SHOOTER CONSTANTS
 	 * --------------------
 	 */
-	public final double SHOOTER_kP = 0;
+
+	
+	public final double SHOOTER_kP = 0.001;
 	public final double SHOOTER_kI = 0;
-	public final double SHOOTER_kD = 0;
+	public final double SHOOTER_kD = 0.005;
 	public final double SHOOTER_kF = 0;
 	public final double SHOOTER_ACCELERATION = 0;
 	public final double SHOOTER_MAX_VELOCITY = 0;

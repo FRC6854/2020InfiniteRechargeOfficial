@@ -1,16 +1,19 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 import frc.robot.commands.conveyor.DriveConveyor;
 import frc.robot.commands.shooter.DriveShooter;
+import frc.robot.subsystems.Constants;
 import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.KitDrivetrain;
 import frc.robot.subsystems.Shooter;
 
 import viking.Controller;
 import viking.OI;
+import viking.controllers.rev.VikingMAX;
 
 public class Robot extends TimedRobot implements RobotMap {
 
@@ -37,8 +40,13 @@ public class Robot extends TimedRobot implements RobotMap {
   }
 
   @Override
-  public void autonomousInit() {
+  public void disabledInit() {
     CommandScheduler.getInstance().cancelAll();
+  }
+
+  @Override
+  public void autonomousInit() {
+    
   }
 
   @Override
@@ -48,7 +56,7 @@ public class Robot extends TimedRobot implements RobotMap {
 
   @Override
   public void teleopInit() {
-    CommandScheduler.getInstance().cancelAll();
+
   }
 
   @Override

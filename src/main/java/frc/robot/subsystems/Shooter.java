@@ -12,14 +12,12 @@ public class Shooter extends SubsystemBase implements Constants, RobotMap {
   private VikingMAX bottomShooter = null;
 
   private Shooter() {
-    topShooter = new VikingMAX(CAN_TOP_SHOOTER, false);
-    bottomShooter = new VikingMAX(CAN_BOTTOM_SHOOTER, true);
+    topShooter = new VikingMAX(CAN_TOP_SHOOTER, true);
+    bottomShooter = new VikingMAX(CAN_BOTTOM_SHOOTER, false);
 
     topShooter.setPIDF(CONVEYOR_kP, CONVEYOR_kI, CONVEYOR_kD, CONVEYOR_kF);
-    topShooter.setSmartMotion(CONVEYOR_MAX_VELOCITY, CONVEYOR_ACCELERATION);
 
     bottomShooter.setPIDF(CONVEYOR_kP, CONVEYOR_kI, CONVEYOR_kD, CONVEYOR_kF);
-    bottomShooter.setSmartMotion(CONVEYOR_MAX_VELOCITY, CONVEYOR_ACCELERATION);
   }
 
   public void setOutputTop(double speed) {
@@ -65,6 +63,11 @@ public class Shooter extends SubsystemBase implements Constants, RobotMap {
 
   public void fullStopBottom() {
     bottomShooter.getSparkMAX().disable();
+  }
+
+  public void setPIDF(double p, double i, double d, double f) {
+    topShooter.setPIDF(p, i, d, f);
+    bottomShooter.setPIDF(p, i, d, f);
   }
 
   public VikingMAX getTopMotor() {
