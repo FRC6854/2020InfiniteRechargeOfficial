@@ -33,12 +33,6 @@ public class DriveShooter extends CommandBase {
       shooter.fullStopTop();
       shooter.fullStopBottom();
     }
-
-    //shooter.setOutputTop(0.75);
-    //shooter.setOutputBottom(0.75);
-
-    //shooter.setVelocityTop(5000);
-    //shooter.setVelocityBottom(5000);
   }
 
   @Override
