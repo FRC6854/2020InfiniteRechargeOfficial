@@ -67,6 +67,7 @@ dependencies {
 dependencies {
     // other dependencies
     compile 'com.github.FRC6854:VIKING:1.18.3'
+    compile "com.github.Oblarg.Oblog:lib:3.1.2"
 }
 
 // Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')

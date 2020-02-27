@@ -1,32 +1,37 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-
+import frc.robot.auto.AutoManager;
 import frc.robot.commands.conveyor.DriveConveyor;
 import frc.robot.commands.shooter.DriveShooter;
-import frc.robot.subsystems.Constants;
 import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.KitDrivetrain;
 import frc.robot.subsystems.Shooter;
-
+import io.github.oblarg.oblog.Logger;
 import viking.Controller;
 import viking.OI;
-import viking.controllers.rev.VikingMAX;
 
 public class Robot extends TimedRobot implements RobotMap {
 
   public static Controller driver = null;
   public static Controller operator = null;
 
-  public static Conveyor conveyor = null;
-  public static Shooter shooter = null;
+  private static AutoManager autoManager = null;
+
+  private static Conveyor conveyor = null;
+  private static Shooter shooter = null;
 
   private static KitDrivetrain drivetrain = null;
 
   @Override
   public void robotInit() {
+    // Logger Setup
+    Logger.configureLoggingAndConfig(this, false);
+    Logger.setCycleWarningsEnabled(false);
+
+    autoManager = AutoManager.getInstance();
+
     driver = new Controller(CONTROLLER_DRIVER);
     operator = new Controller(CONTROLLER_OPERATOR);
     
@@ -48,7 +53,7 @@ public class Robot extends TimedRobot implements RobotMap {
 
   @Override
   public void autonomousInit() {
-    
+    CommandScheduler.getInstance().schedule(autoManager.getAutoChooserCommand());
   }
 
   @Override
