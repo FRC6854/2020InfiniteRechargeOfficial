@@ -34,8 +34,14 @@ public class KitDrivetrain extends SubsystemBase implements Constants, RobotMap 
     leftSlave = new VikingSPX(CAN_LEFT_BACK, leftMaster, false);
     rightMaster = new VikingSRX(CAN_RIGHT_FRONT, true, true, FeedbackDevice.CTRE_MagEncoder_Relative, DRIVETRAIN_kF, DRIVETRAIN_kP, DRIVETRAIN_kI, DRIVETRAIN_kD, 1250, 1250, DRIVETRAIN_kMetersPerRevolution);
     rightSlave = new VikingSPX(CAN_RIGHT_BACK, rightMaster, true);
-  
-    gyro = new AHRS(Port.kMXP);
+
+    try {
+      gyro = new AHRS(Port.kMXP); 
+    } catch (RuntimeException ex ) {
+      System.out.println("--------------");
+      System.out.println("NavX not plugged in");
+      System.out.println("--------------");
+    }
 
     gyroPID = new PIDController(GYRO_kP, GYRO_kI, GYRO_kD);
   }
@@ -162,10 +168,6 @@ public class KitDrivetrain extends SubsystemBase implements Constants, RobotMap 
       return 0.0;
     }
   }
-
-  public void turn(double setAngle, double speed) {
-		turn(setAngle, speed, 1);
-	}
 
 	public void turn(double setAngle, double speed, double tolerance) {
     double angle = gyroPID.calcPID(setAngle, getGyroAngle(), tolerance);
