@@ -22,8 +22,8 @@ public class DriveShooter extends CommandBase {
   @Override
   public void execute() {
     if (Robot.driver.getControllerRBumper() == true) {
-      shooter.setOutputTop(0.65);
-      shooter.setOutputBottom(0.65);
+      shooter.setOutputTop(0.55);
+      shooter.setOutputBottom(0.55);
     }
     else if (Robot.driver.getControllerLBumper() == true) {
       shooter.setOutputTop(0.3);

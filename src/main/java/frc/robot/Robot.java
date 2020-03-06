@@ -1,6 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.auto.AutoManager;
 import frc.robot.commands.conveyor.DriveConveyor;
@@ -8,7 +9,7 @@ import frc.robot.commands.shooter.DriveShooter;
 import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.KitDrivetrain;
 import frc.robot.subsystems.Shooter;
-import io.github.oblarg.oblog.Logger;
+import frc.robot.subsystems.Climber;
 import viking.Controller;
 import viking.OI;
 
@@ -21,25 +22,25 @@ public class Robot extends TimedRobot implements RobotMap {
 
   private static Conveyor conveyor = null;
   private static Shooter shooter = null;
+  private static Climber climber = null;
 
   private static KitDrivetrain drivetrain = null;
 
   @Override
   public void robotInit() {
-    // Logger Setup
-    Logger.configureLoggingAndConfig(this, false);
-    Logger.setCycleWarningsEnabled(false);
-
     autoManager = AutoManager.getInstance();
 
     driver = new Controller(CONTROLLER_DRIVER);
     operator = new Controller(CONTROLLER_OPERATOR);
+
+    operator.setControllerLeftStickYDeadband(0.05);
     
     drivetrain = KitDrivetrain.getInstance();
 
     conveyor = Conveyor.getInstance();
     shooter = Shooter.getInstance();
-    
+    climber = Climber.getInstance();
+
     conveyor.setDefaultCommand(new DriveConveyor());
     shooter.setDefaultCommand(new DriveShooter());
 
@@ -47,12 +48,20 @@ public class Robot extends TimedRobot implements RobotMap {
   }
 
   @Override
+  public void robotPeriodic() {
+    SmartDashboard.putNumber("Lift Ticks", climber.getLiftTicks());
+    SmartDashboard.putData(autoManager.getAutoChooser());
+  }
+
+  @Override
   public void disabledInit() {
+    System.out.println("Disabled");
     CommandScheduler.getInstance().cancelAll();
   }
 
   @Override
   public void autonomousInit() {
+    System.out.println("Autonomous");
     CommandScheduler.getInstance().schedule(autoManager.getAutoChooserCommand());
   }
 
@@ -63,7 +72,7 @@ public class Robot extends TimedRobot implements RobotMap {
 
   @Override
   public void teleopInit() {
-
+    System.out.println("Tele-op");
   }
 
   @Override

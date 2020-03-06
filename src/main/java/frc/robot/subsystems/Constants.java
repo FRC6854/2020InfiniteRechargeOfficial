@@ -30,17 +30,11 @@ public interface Constants {
 	 * 	VISION AIMING CONSTANTS
 	 * -------------------------
 	 */
-	public final double AIM_kP = 0.05;
-	public final double AIM_kI = 0.0;
-	public final double AIM_kD = 0.0;
+	public final double AIM_kP = 0.06;
+	public final double AIM_kI = 0.00002;
+	public final double AIM_kD = 0.04;
 
-	public final double AIM_DISTANCE_kP = 0.05;
-	public final double AIM_DISTANCE_kI = 0.0;
-	public final double AIM_DISTANCE_kD = 0.0;
-
-	public final double AIM_kMinCommand = 0.05;
 	public final double AIM_kMaxCommand = 0.75;
-
 	public final double AIM_kThreshold = 0.5;
 
 	/**
@@ -80,8 +74,7 @@ public interface Constants {
 	public final double LIFT_kF = 0;
 	public final double LIFT_ACCELERATION = 0;
 	public final double LIFT_MAX_VELOCITY = 0;
-
-	public final int LIFT_TICKS_PER_REV = 64;
+	public final float LIFT_MAX_ROTATIONS = 17f;
 
 	public final double WINCH_kP = 0;
 	public final double WINCH_kI = 0;

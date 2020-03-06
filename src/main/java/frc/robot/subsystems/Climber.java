@@ -1,33 +1,41 @@
 package frc.robot.subsystems;
+
+import com.revrobotics.CANSparkMax.SoftLimitDirection;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
+import frc.robot.commands.climber.DriveClimber;
+import viking.controllers.ctre.VikingSPX;
+import viking.controllers.ctre.VikingSRX;
 import viking.controllers.rev.VikingMAX;
 
 public class Climber extends SubsystemBase implements Constants, RobotMap {
-  
-  VikingMAX winch;
+
   VikingMAX lift;
   VikingMAX massShifter;
+  VikingSRX winchMaster;
+  VikingSPX winchSlave;
   
   static Climber instance = null;
 
   public Climber() {
-    lift = new VikingMAX(CAN_LIFT, false);
-    winch = new VikingMAX(CAN_WINCH, false);
+    lift = new VikingMAX(CAN_LIFT, true);
     massShifter = new VikingMAX(CAN_MASS_SHIFTER, false);
+
+    winchMaster = new VikingSRX(CAN_WINCH_MASTER, false);
+    winchSlave = new VikingSPX(CAN_WINCH_SLAVE, winchMaster, false);
 
     lift.setPIDF(LIFT_kP, LIFT_kI, LIFT_kD, LIFT_kF);
     lift.setSmartMotion(LIFT_MAX_VELOCITY, LIFT_ACCELERATION);
 
-    winch.setPIDF(WINCH_kP, WINCH_kI, WINCH_kD, WINCH_kF);
-    winch.setSmartMotion(WINCH_MAX_VELOCITY, WINCH_ACCELERATION);
-
-    massShifter.setPIDF(SHIFT_kP, SHIFT_kI, SHIFT_kD, SHIFT_kF);
-    massShifter.setSmartMotion(SHIFT_MAX_VELOCITY, SHIFT_ACCELERATION);
+    lift.getSparkMAX().enableSoftLimit(SoftLimitDirection.kForward, true);
+    lift.getSparkMAX().setSoftLimit(SoftLimitDirection.kForward, LIFT_MAX_ROTATIONS);
+    lift.getSparkMAX().enableSoftLimit(SoftLimitDirection.kReverse, true);
+    lift.getSparkMAX().setSoftLimit(SoftLimitDirection.kReverse, 0.05f);
   }
 
-  public void setLiftAngle(double angle) {
-    lift.positionControl(angleToTicks(angle));
+  public void setLiftPosition(double ticks) {
+    lift.positionControl(ticks);
   }
 
   public void setLiftOutput(double output) {
@@ -35,7 +43,7 @@ public class Climber extends SubsystemBase implements Constants, RobotMap {
   }
 
   public void setWinchOutput(double output) {
-    winch.percentOutput(output);
+    winchMaster.percentOutput(output);
   }
 
   public void setShifterOutput(double output) {
@@ -44,7 +52,6 @@ public class Climber extends SubsystemBase implements Constants, RobotMap {
 
   public void fullStop() {
     lift.getSparkMAX().disable();
-    winch.getSparkMAX().disable();
     massShifter.getSparkMAX().disable();
   }
 
@@ -52,34 +59,22 @@ public class Climber extends SubsystemBase implements Constants, RobotMap {
     return lift.getOutput();
   }
 
-  public double getWinchOutput() {
-    return winch.getOutput();
+  public double getLiftTicks() {
+    return lift.getPosition();
   }
 
-  public double getLiftAngle() {
-    return ticksToAngle(lift.getPosition());
+  public void zeroLift() {
+    lift.zeroEncoder();
   }
 
   public double getShifterOutput() {
     return massShifter.getOutput();
   }
 
-  private double angleToTicks(double angle) {
-    return ((LIFT_TICKS_PER_REV * angle) / 360);
-  }
-
-  private double ticksToAngle(double ticks) {
-    return (360 * ticks) / LIFT_TICKS_PER_REV;
-  }
-
-  @Override
-  public void periodic() {
-  }
-
   public static Climber getInstance() {
     if(instance == null) {
       instance = new Climber();
-      //instance.setDefaultCommand();
+      instance.setDefaultCommand(new DriveClimber());
     }
 		return instance;
   }

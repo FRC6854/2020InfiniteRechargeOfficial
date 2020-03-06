@@ -34,24 +34,26 @@ public class ArcadeDrive extends CommandBase {
       limelight.setLEDMode(LightMode.ON);
       limelight.setDriverMode(false);
 
-      // Calculate the PID output using a threshold and make the target 0 (center of the crosshair)
-      double pidAim = aimPIDController.calcPID(0, limelight.targetX(), Constants.AIM_kThreshold);
-
-      // Set the min and max values for the output
-      if (Math.abs(pidAim) < Constants.AIM_kMinCommand) {
-        pidAim = 0;
-      }
-
-      if (Math.abs(pidAim) > Constants.AIM_kMaxCommand) {
-        if (pidAim > 0) pidAim = Constants.AIM_kMaxCommand;
-        if (pidAim < 0) pidAim = -Constants.AIM_kMaxCommand;
-      }
-
-      // Set the LEDMode
       LEDController.getInstance().setMode(LEDMode.VISION);
 
-      // Drive using the output values
-      drivetrain.arcadeDrive(Robot.driver.getControllerLeftStickY(), pidAim);
+      if (limelight.validTargets() == true) {
+        // Calculate the PID output using a threshold and make the target 0 (center of the crosshair)
+        double pidAim = aimPIDController.calcPID(0, -limelight.targetX(), Constants.AIM_kThreshold);
+
+        if (Math.abs(pidAim) > Constants.AIM_kMaxCommand) {
+          if      (pidAim > 0) pidAim = Constants.AIM_kMaxCommand;
+          else if (pidAim < 0) pidAim = -Constants.AIM_kMaxCommand;
+        }
+
+        // Set the LEDMode
+        LEDController.getInstance().setMode(LEDMode.VISION);
+
+        // Drive using the output values
+        drivetrain.arcadeDrive(Robot.driver.getControllerLeftStickY(), pidAim);
+      }
+      else {
+        drivetrain.arcadeDrive(Robot.driver.getControllerLeftStickY(), 0);
+      }
     }
     else {
       limelight.setLEDMode(LightMode.OFF);

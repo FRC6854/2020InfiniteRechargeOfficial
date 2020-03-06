@@ -2,8 +2,8 @@ package frc.robot.auto;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.auto.auto_commands.AimShoot;
 import frc.robot.commands.drivetrain.*;
-import io.github.oblarg.oblog.annotations.Log;
 
 public class AutoManager {
 
@@ -13,20 +13,19 @@ public class AutoManager {
 
     private AutoManager () {
       autoChooser.setDefaultOption("90 Hatch", 1);
-      autoChooser.addOption("Drive Profile Hatch", 2);
-      autoChooser.addOption("45 Hatch", 3);
-      autoChooser.addOption("Testing", 4);
-      autoChooser.addOption("Profile Follow", 5);
+      autoChooser.addOption("Auto Shoot", 2);
     }
 
-    @Log(name = "Auto Mode")
     public SendableChooser<Integer> getAutoChooser() {
       return autoChooser;
     }
 
     public Command getAutoChooserCommand() {
       switch (autoChooser.getSelected()) {
-        default: return null;
+        case 2:
+          return new AimShoot().withTimeout(15.0);
+        default: 
+          return null;
       }
     }
 
@@ -34,7 +33,6 @@ public class AutoManager {
       if (instance == null) {
           instance = new AutoManager();
       }
-
       return instance;
     }
 }

@@ -60,9 +60,10 @@ public interface RobotMap {
     public static final int CAN_INTAKE_CONVEYOR = 1;
     public static final int CAN_UPPER_CONVEYOR = 4;
 
-    // CONVEYOR
-    public static final int CAN_WINCH = 6;
-    public static final int CAN_LIFT = 0;
-    public static final int CAN_MASS_SHIFTER = 0;
+    // CLIMBER
+    public static final int CAN_WINCH_MASTER = 1;
+    public static final int CAN_WINCH_SLAVE = 2;
+    public static final int CAN_LIFT = 7;
+    public static final int CAN_MASS_SHIFTER = 8;
 
 }

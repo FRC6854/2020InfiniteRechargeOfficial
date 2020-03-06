@@ -8,6 +8,8 @@ import frc.robot.subsystems.Shooter;
 import viking.Limelight;
 import viking.Limelight.LightMode;
 import viking.controllers.PIDController;
+import viking.led.LEDController;
+import viking.led.LEDController.LEDMode;
 
 public class AimShoot extends CommandBase {
 
@@ -32,6 +34,7 @@ public class AimShoot extends CommandBase {
   public void initialize() {
     drivetrain.arcadeDrive(0, 0);
     limelight.setLEDMode(LightMode.ON);
+    LEDController.getInstance().setMode(LEDMode.VISION);
   }
 
   @Override
@@ -61,6 +64,7 @@ public class AimShoot extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
+    LEDController.getInstance().setMode(LEDMode.DEFAULT);
     limelight.setLEDMode(LightMode.OFF);
   }
 

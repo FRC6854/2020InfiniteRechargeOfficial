@@ -22,17 +22,23 @@ public class DriveConveyor extends CommandBase {
   @Override
   public void execute() {
     double output = Robot.driver.getControllerRTrigger() - Robot.driver.getControllerLTrigger();
-    conveyor.setOutputIntake(output);
 
     if (Robot.driver.getControllerLBumper() == true || Robot.driver.getControllerRBumper() == true) {
+      conveyor.setOutputIntake(output);
       conveyor.setOutputUpper(output);
     } 
     else {
-      if (output == 0) {
-        conveyor.fullStopUpper();
+      if (output > 0) {
+        conveyor.setOutputIntake(output);
+        conveyor.setOutputUpper(output / 10);
+      }
+      else if (output < 0) {
+        conveyor.setOutputIntake(output / 10);
+        conveyor.setOutputUpper(output);
       }
       else {
-        conveyor.setOutputUpper(output / 10);
+        conveyor.fullStopIntake();
+        conveyor.fullStopUpper();
       }
     }
   }
