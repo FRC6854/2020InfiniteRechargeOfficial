@@ -11,7 +11,9 @@ import frc.robot.subsystems.KitDrivetrain;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Climber;
 import viking.Controller;
+import viking.Limelight;
 import viking.OI;
+import viking.Limelight.LightMode;
 
 public class Robot extends TimedRobot implements RobotMap {
 
@@ -28,12 +30,15 @@ public class Robot extends TimedRobot implements RobotMap {
 
   @Override
   public void robotInit() {
+    Limelight.getInstance().setLEDMode(LightMode.OFF);
+    Limelight.getInstance().setDriverMode(true);
+
     autoManager = AutoManager.getInstance();
 
     driver = new Controller(CONTROLLER_DRIVER);
-    operator = new Controller(CONTROLLER_OPERATOR);
 
-    operator.setControllerLeftStickYDeadband(0.05);
+    operator = new Controller(CONTROLLER_OPERATOR);
+    operator.setControllerRightStickXDeadband(0.05);
     
     drivetrain = KitDrivetrain.getInstance();
 
