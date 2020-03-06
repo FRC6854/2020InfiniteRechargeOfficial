@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.revrobotics.CANSparkMax.SoftLimitDirection;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -22,7 +23,12 @@ public class Climber extends SubsystemBase implements Constants, RobotMap {
     lift = new VikingMAX(CAN_LIFT, true);
     massShifter = new VikingMAX(CAN_MASS_SHIFTER, false);
 
-    winchMaster = new VikingSRX(CAN_WINCH_MASTER, false);
+    //winchMaster = new VikingSRX(CAN_WINCH_MASTER, false);
+
+    winchMaster = new VikingSRX(CAN_WINCH_MASTER, false, false, 
+    FeedbackDevice.CTRE_MagEncoder_Relative, WINCH_kF, WINCH_kP, WINCH_kI, 
+    WINCH_kD, WINCH_MAX_VELOCITY, WINCH_ACCELERATION, 0);
+
     winchSlave = new VikingSPX(CAN_WINCH_SLAVE, winchMaster, false);
 
     lift.setPIDF(LIFT_kP, LIFT_kI, LIFT_kD, LIFT_kF);
@@ -32,6 +38,7 @@ public class Climber extends SubsystemBase implements Constants, RobotMap {
     lift.getSparkMAX().setSoftLimit(SoftLimitDirection.kForward, LIFT_MAX_ROTATIONS);
     lift.getSparkMAX().enableSoftLimit(SoftLimitDirection.kReverse, true);
     lift.getSparkMAX().setSoftLimit(SoftLimitDirection.kReverse, 0.05f);
+
   }
 
   public void setLiftPosition(double ticks) {
@@ -43,7 +50,17 @@ public class Climber extends SubsystemBase implements Constants, RobotMap {
   }
 
   public void setWinchOutput(double output) {
-    winchMaster.percentOutput(output);
+    // Make sure output is postive since wrench CAN NEVER be run backwards
+    if (output >= 0) {
+      winchMaster.percentOutput(output);
+    } else {
+      winchMaster.percentOutput(0.0);
+      System.out.println("Output is negative!");
+    }
+  }
+
+  public void setWinchPosition(double ticks) {
+    winchMaster.positionControl(ticks); 
   }
 
   public void setShifterOutput(double output) {
@@ -63,8 +80,16 @@ public class Climber extends SubsystemBase implements Constants, RobotMap {
     return lift.getPosition();
   }
 
+  public int getWinchTicks() {
+    return winchMaster.getTicks();
+  }
+
   public void zeroLift() {
     lift.zeroEncoder();
+  }
+
+  public void zeroWinch() {
+    winchMaster.zeroSensor();
   }
 
   public double getShifterOutput() {
