@@ -34,22 +34,28 @@ public class AimShoot extends CommandBase {
   public void initialize() {
     drivetrain.arcadeDrive(0, 0);
     limelight.setLEDMode(LightMode.ON);
+    limelight.setDriverMode(false);
     LEDController.getInstance().setMode(LEDMode.VISION);
   }
 
   @Override
   public void execute() {
     if (limelight.validTargets() == true) {
-      double horizontalOutput = aimPIDController.calcPID(0, limelight.targetX(), Constants.AIM_kThreshold);
+      double pidAim = aimPIDController.calcPID(0, -limelight.targetX(), Constants.AIM_kThreshold);
 
-      drivetrain.arcadeDrive(0, horizontalOutput);
+      if (Math.abs(pidAim) > Constants.AIM_kMaxCommand) {
+        if      (pidAim > 0) pidAim = Constants.AIM_kMaxCommand;
+        else if (pidAim < 0) pidAim = -Constants.AIM_kMaxCommand;
+      }
+
+      drivetrain.arcadeDrive(0, pidAim);
 
       if (aimPIDController.isDone() == true) {
-        conveyor.setOutputUpper(1.0);
-        conveyor.setOutputIntake(1.0);
+        conveyor.setOutputUpper(0.65);
+        conveyor.setOutputIntake(0.65);
 
-        shooter.setOutputTop(0.75);
-        shooter.setOutputBottom(0.75);
+        shooter.setOutputTop(0.55);
+        shooter.setOutputBottom(0.55);
       }
       else {
         conveyor.fullStop();
@@ -59,12 +65,14 @@ public class AimShoot extends CommandBase {
     else {
       shooter.fullStop();
       conveyor.fullStop();
+      drivetrain.arcadeDrive(0, 0);
     }
   }
 
   @Override
   public void end(boolean interrupted) {
     LEDController.getInstance().setMode(LEDMode.DEFAULT);
+    limelight.setDriverMode(true);
     limelight.setLEDMode(LightMode.OFF);
   }
 

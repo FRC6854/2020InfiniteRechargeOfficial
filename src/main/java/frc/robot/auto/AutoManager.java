@@ -28,7 +28,7 @@ public class AutoManager {
         case 1:
           return new LimelightCalibration();
         case 2:
-          return new AimShoot().withTimeout(15.0);
+          return new AimShoot().withTimeout(2.0);
         case 3:
           // Run at 50% speed at start and stop after 1 second then at 2 seconds go at 50% speed
           return new RunConveyorTime(

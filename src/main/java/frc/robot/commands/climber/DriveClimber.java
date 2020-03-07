@@ -24,13 +24,8 @@ public class DriveClimber extends CommandBase {
 
   @Override
   public void execute() {
-
     double liftOutput = Robot.operator.getControllerRTrigger();
-    double winchOutput = liftOutput - Robot.operator.getControllerLTrigger();
-
-    climber.setWinchOutput(winchOutput);
-    /*double liftOutput = Robot.operator.getControllerRTrigger();
-    double winchOutput = liftOutput - Robot.operator.getControllerLTrigger();
+    double winchOutput = liftOutput;
 
     climber.setShifterOutput(Robot.operator.getControllerRightStickX());
 
@@ -40,44 +35,23 @@ public class DriveClimber extends CommandBase {
 
     winchOutput *= 0.75;
 
-    if (Math.abs(winchOutput) >= 1) {
-      if      (winchOutput > 0) winchOutput = 1;
-      else if (winchOutput < 0) winchOutput = -1;
-    }
-
-    if (climber.getLiftTicks() <= 0.1) {
-      climber.setWinchOutput(0);
-    }
-    else {
+    if (Robot.operator.getControllerBButton() == true) {
       if (winchOutput > 0) {
-        if (climber.getLiftTicks() >= Constants.LIFT_MAX_ROTATIONS - 0.05) {
+        if (climber.getLiftTicks() <= 0.50) {
           climber.setWinchOutput(0);
         }
         else {
           climber.setWinchOutput(winchOutput);
         }
       }
-      else if (winchOutput < 0) {
-        winchOutput *= 2;
-        climber.setWinchOutput(winchOutput);
-        System.out.println(winchOutput);
-      }
       else {
         climber.setWinchOutput(winchOutput);
-      }
-    }
-
-    if (winchOutput <= -0.05) {
-      if (Robot.operator.getControllerBButton() == true) {
-        climber.setLiftOutput(-0.5);
-      }
-      else {
-        climber.setLiftOutput(liftOutput);
       }
     }
     else {
       climber.setLiftOutput(liftOutput);
-    }*/
+      climber.setWinchOutput(0);
+    }
   }
 
   @Override

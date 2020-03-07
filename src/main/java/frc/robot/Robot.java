@@ -1,5 +1,7 @@
 package frc.robot;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -28,8 +30,13 @@ public class Robot extends TimedRobot implements RobotMap {
 
   private static KitDrivetrain drivetrain = null;
 
+  private static UsbCamera camera = null;
+
   @Override
   public void robotInit() {
+    camera = CameraServer.getInstance().startAutomaticCapture();
+    camera.setFPS(30);
+
     Limelight.getInstance().setLEDMode(LightMode.OFF);
     Limelight.getInstance().setDriverMode(true);
 
