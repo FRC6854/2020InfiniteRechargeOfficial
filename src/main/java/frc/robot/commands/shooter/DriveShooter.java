@@ -2,7 +2,6 @@ package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
-import frc.robot.subsystems.Constants;
 import frc.robot.subsystems.Shooter;
 
 public class DriveShooter extends CommandBase {
@@ -12,11 +11,6 @@ public class DriveShooter extends CommandBase {
   public DriveShooter() {
     shooter = Shooter.getInstance();
     addRequirements(shooter);
-  }
-
-  @Override
-  public void initialize() {
-    shooter.setPIDF(Constants.SHOOTER_kP, Constants.SHOOTER_kI, Constants.SHOOTER_kD, Constants.SHOOTER_kF);
   }
 
   @Override
@@ -36,7 +30,8 @@ public class DriveShooter extends CommandBase {
   }
 
   @Override
-  public boolean isFinished() {
-    return false;
+  public void end(boolean interrupted) {
+    shooter.fullStopTop();
+    shooter.fullStopBottom();
   }
 }

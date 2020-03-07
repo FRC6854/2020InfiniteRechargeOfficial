@@ -11,9 +11,11 @@ public class RunConveyorTime extends CommandBase {
   private double[][] points;
   private Timer timer;
 
+  private int lastPoint = 0;
+
   /**
    * Run the conveyor at certain times at certain speeds
-   * @param points [i][0] is the time, and [i][1] is the speed of the conveyor at that time
+   * @param points [i][0] is the time, and [i][1] is the speed of the intake conveyor at that time, and [i][2] is the speed of the upper conveyor
    */
   public RunConveyorTime(double[][] points) {
     conveyor = Conveyor.getInstance();
@@ -29,21 +31,32 @@ public class RunConveyorTime extends CommandBase {
 
   @Override
   public void execute() {
+    double lastOutputIntake = 0;
+    double lastOutputUpper = 0;
+
     for (int i = 0; i < points.length; i++) {
       if (timer.get() >= points[i][0]) {
-        conveyor.setOutputIntake(points[i][1]);
-        conveyor.setOutputUpper(points[i][1]);
+        lastPoint = i;
+        lastOutputIntake = points[i][1];
+        lastOutputUpper = points[i][2];
       }
     }
+
+    conveyor.setOutputIntake(lastOutputIntake);
+    conveyor.setOutputUpper(lastOutputUpper);
   }
 
   @Override
   public void end(boolean interrupted) {
     timer.stop();
+    conveyor.fullStop();
   }
 
   @Override
   public boolean isFinished() {
+    if (lastPoint == points.length) {
+      return true;
+    }
     return false;
   }
 }

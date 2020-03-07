@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.auto.auto_commands.AimShoot;
 import frc.robot.auto.auto_commands.RunConveyorTime;
 import frc.robot.commands.debug.LimelightCalibration;
-import frc.robot.commands.drivetrain.*;
 
 public class AutoManager {
 
@@ -33,9 +32,10 @@ public class AutoManager {
           // Run at 50% speed at start and stop after 1 second then at 2 seconds go at 50% speed
           return new RunConveyorTime(
             new double[][] {
-              {0.0, 0.5}, 
-              {1.0, 0.0},
-              {2.0, 0.5}
+              {0.0, 0.5, 0.5}, 
+              {1.0, 0.0, 0.0},
+              {2.0, 1.0, 1.0},
+              {3.0, 0.0, 0.0}
             }
           );
       }

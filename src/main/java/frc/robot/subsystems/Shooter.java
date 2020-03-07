@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
+import frc.robot.commands.shooter.DriveShooter;
 import viking.controllers.rev.VikingMAX;
 
 public class Shooter extends SubsystemBase implements Constants, RobotMap {
@@ -81,6 +82,7 @@ public class Shooter extends SubsystemBase implements Constants, RobotMap {
   public static Shooter getInstance() {
     if (instance == null) {
       instance = new Shooter();
+      instance.setDefaultCommand(new DriveShooter());
     }
     return instance;
   }

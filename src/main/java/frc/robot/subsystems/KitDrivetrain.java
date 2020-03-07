@@ -232,7 +232,7 @@ public class KitDrivetrain extends SubsystemBase implements Constants, RobotMap 
   }
   
   public static KitDrivetrain getInstance() {
-    if(instance == null) {
+    if (instance == null) {
       instance = new KitDrivetrain();
       instance.setDefaultCommand(new ArcadeDrive());
     }

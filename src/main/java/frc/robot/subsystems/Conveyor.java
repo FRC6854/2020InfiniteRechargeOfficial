@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
+import frc.robot.commands.conveyor.DriveConveyor;
 import viking.controllers.rev.VikingMAX;
 
 public class Conveyor extends SubsystemBase implements Constants, RobotMap {
@@ -48,6 +49,7 @@ public class Conveyor extends SubsystemBase implements Constants, RobotMap {
   public static Conveyor getInstance() {
     if (instance == null) {
       instance = new Conveyor();
+      instance.setDefaultCommand(new DriveConveyor());
     }
     return instance;
   }

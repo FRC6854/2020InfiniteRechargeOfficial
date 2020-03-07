@@ -4,10 +4,10 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.auto.AutoManager;
-import frc.robot.commands.conveyor.DriveConveyor;
-import frc.robot.commands.shooter.DriveShooter;
+import frc.robot.auto.auto_commands.AimShoot;
 import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.KitDrivetrain;
 import frc.robot.subsystems.Shooter;
@@ -23,12 +23,6 @@ public class Robot extends TimedRobot implements RobotMap {
   public static Controller operator = null;
 
   private static AutoManager autoManager = null;
-
-  private static Conveyor conveyor = null;
-  private static Shooter shooter = null;
-  private static Climber climber = null;
-
-  private static KitDrivetrain drivetrain = null;
 
   private static UsbCamera camera = null;
 
@@ -47,21 +41,16 @@ public class Robot extends TimedRobot implements RobotMap {
     operator = new Controller(CONTROLLER_OPERATOR);
     operator.setControllerRightStickXDeadband(0.05);
     
-    drivetrain = KitDrivetrain.getInstance();
-
-    conveyor = Conveyor.getInstance();
-    shooter = Shooter.getInstance();
-    climber = Climber.getInstance();
-
-    conveyor.setDefaultCommand(new DriveConveyor());
-    shooter.setDefaultCommand(new DriveShooter());
+    KitDrivetrain.getInstance();
+    Conveyor.getInstance();
+    Shooter.getInstance();
+    Climber.getInstance();
 
     OI.getInstance();
   }
 
   @Override
   public void robotPeriodic() {
-    SmartDashboard.putNumber("Lift Ticks", climber.getLiftTicks());
     SmartDashboard.putData(autoManager.getAutoChooser());
   }
 
@@ -74,7 +63,14 @@ public class Robot extends TimedRobot implements RobotMap {
   @Override
   public void autonomousInit() {
     System.out.println("Autonomous");
-    CommandScheduler.getInstance().schedule(autoManager.getAutoChooserCommand());
+
+    Command autoCommand = autoManager.getAutoChooserCommand();
+    if (autoCommand != null) {
+      CommandScheduler.getInstance().schedule(autoCommand);
+    }
+    else {
+      CommandScheduler.getInstance().schedule(new AimShoot());
+    }
   }
 
   @Override
