@@ -3,6 +3,8 @@ package frc.robot.commands.climber;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber;
 import frc.robot.Robot;
+import frc.robot.led.LEDControllerNew;
+import frc.robot.led.LEDControllerNew.LEDMode;
 
 public class DriveClimber extends CommandBase {
 
@@ -34,6 +36,8 @@ public class DriveClimber extends CommandBase {
     winchOutput *= 0.75;
 
     if (Robot.operator.getControllerBButton() == true) {
+      LEDControllerNew.getInstance().setMode(LEDMode.WINCH_ACTIVE);
+
       if (winchOutput > 0) {
         if (climber.getLiftTicks() <= 0.50) {
           climber.setWinchOutput(0);
@@ -47,6 +51,8 @@ public class DriveClimber extends CommandBase {
       }
     }
     else {
+      LEDControllerNew.getInstance().setMode(LEDMode.CLIMB_ACTIVE);
+
       climber.setLiftOutput(liftOutput);
       climber.setWinchOutput(0);
     }

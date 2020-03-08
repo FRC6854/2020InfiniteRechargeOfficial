@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.auto.AutoManager;
 import frc.robot.auto.auto_commands.AimShoot;
+import frc.robot.led.LEDControllerNew;
+import frc.robot.led.LEDControllerNew.LEDMode;
 import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.KitDrivetrain;
 import frc.robot.subsystems.Shooter;
@@ -64,12 +66,14 @@ public class Robot extends TimedRobot implements RobotMap {
   public void autonomousInit() {
     System.out.println("Autonomous");
 
+    LEDControllerNew.getInstance().setMode(LEDMode.DEFAULT);
+
     Command autoCommand = autoManager.getAutoChooserCommand();
     if (autoCommand != null) {
-      CommandScheduler.getInstance().schedule(autoCommand);
+      CommandScheduler.getInstance().schedule(autoCommand.withTimeout(15));
     }
     else {
-      CommandScheduler.getInstance().schedule(new AimShoot());
+      CommandScheduler.getInstance().schedule(new AimShoot().withTimeout(15));
     }
   }
 

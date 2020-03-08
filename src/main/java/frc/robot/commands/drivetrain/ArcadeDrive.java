@@ -3,6 +3,8 @@ package frc.robot.commands.drivetrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.Robot;
+import frc.robot.led.LEDControllerNew;
+import frc.robot.led.LEDControllerNew.LEDMode;
 import frc.robot.subsystems.Constants;
 import frc.robot.subsystems.KitDrivetrain;
 
@@ -10,9 +12,6 @@ import viking.controllers.PIDController;
 
 import viking.Limelight;
 import viking.Limelight.LightMode;
-
-import viking.led.LEDController;
-import viking.led.LEDController.LEDMode;
 
 public class ArcadeDrive extends CommandBase {
 
@@ -34,8 +33,6 @@ public class ArcadeDrive extends CommandBase {
       limelight.setLEDMode(LightMode.ON);
       limelight.setDriverMode(false);
 
-      LEDController.getInstance().setMode(LEDMode.VISION);
-
       if (limelight.validTargets() == true) {
         // Calculate the PID output using a threshold and make the target 0 (center of the crosshair)
         double pidAim = aimPIDController.calcPID(0, -limelight.targetX(), Constants.AIM_kThreshold);
@@ -45,8 +42,12 @@ public class ArcadeDrive extends CommandBase {
           else if (pidAim < 0) pidAim = -Constants.AIM_kMaxCommand;
         }
 
-        // Set the LEDMode
-        LEDController.getInstance().setMode(LEDMode.VISION);
+        if (aimPIDController.isDone() == true) {
+          LEDControllerNew.getInstance().setMode(LEDMode.VISION);
+        }
+        else {
+          LEDControllerNew.getInstance().setMode(LEDMode.NO_VISION);
+        }
 
         // Drive using the output values
         drivetrain.arcadeDrive(Robot.driver.getControllerLeftStickY(), pidAim);
@@ -59,7 +60,8 @@ public class ArcadeDrive extends CommandBase {
       limelight.setLEDMode(LightMode.OFF);
       limelight.setDriverMode(true);
 
-      LEDController.getInstance().setMode(LEDMode.TELEOP);
+      LEDControllerNew.getInstance().setMode(LEDMode.DEFAULT);
+
       drivetrain.arcadeDrive(Robot.driver.getControllerLeftStickY(), Robot.driver.getControllerRightStickX());
     }
   }

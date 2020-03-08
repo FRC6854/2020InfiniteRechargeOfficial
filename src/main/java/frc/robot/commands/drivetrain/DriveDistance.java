@@ -2,12 +2,9 @@ package frc.robot.commands.drivetrain;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.KitDrivetrain;
-import viking.led.LEDController;
-import viking.led.LEDController.LEDMode;
 
 public class DriveDistance extends CommandBase {
   private KitDrivetrain drivetrain = null;
-  private LEDController leds = null;
   
   private double meters;
 
@@ -17,7 +14,6 @@ public class DriveDistance extends CommandBase {
 
   public DriveDistance(double meters) {
     drivetrain = KitDrivetrain.getInstance();
-    leds = LEDController.getInstance();
 
     addRequirements(drivetrain);
 
@@ -32,7 +28,6 @@ public class DriveDistance extends CommandBase {
 
   @Override
   public void execute() {
-    leds.setMode(LEDMode.AUTO);
     timer++;
   }
 

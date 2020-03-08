@@ -2,6 +2,8 @@ package frc.robot.auto.auto_commands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.led.LEDControllerNew;
+import frc.robot.led.LEDControllerNew.LEDMode;
 import frc.robot.subsystems.Conveyor;
 
 public class RunConveyorTime extends CommandBase {
@@ -40,6 +42,27 @@ public class RunConveyorTime extends CommandBase {
         lastOutputIntake = points[i][1];
         lastOutputUpper = points[i][2];
       }
+    }
+
+    // Check intake direction
+    if (lastOutputIntake > 0) {
+      LEDControllerNew.getInstance().setMode(LEDMode.LCF);
+    } else if (lastOutputIntake < 0) {
+      LEDControllerNew.getInstance().setMode(LEDMode.LCB);
+    }
+
+    // Check upper direction
+    if (lastOutputUpper > 0) {
+      LEDControllerNew.getInstance().setMode(LEDMode.UCF);
+    } else if (lastOutputUpper < 0) {
+      LEDControllerNew.getInstance().setMode(LEDMode.UCB);
+    }
+
+    // Check both directions
+    if (lastOutputUpper > 0 && lastOutputIntake > 0) {
+      LEDControllerNew.getInstance().setMode(LEDMode.BOTH_FWRD);
+    } else if (lastOutputUpper < 0 && lastOutputIntake < 0) {
+      LEDControllerNew.getInstance().setMode(LEDMode.BOTH_BKWD);
     }
 
     conveyor.setOutputIntake(lastOutputIntake);
