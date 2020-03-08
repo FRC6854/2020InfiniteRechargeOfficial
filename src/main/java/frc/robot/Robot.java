@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -53,7 +54,13 @@ public class Robot extends TimedRobot implements RobotMap {
 
   @Override
   public void robotPeriodic() {
+    // Data display stuff
     SmartDashboard.putData(autoManager.getAutoChooser());
+
+    // Low Voltage Display
+    if (RobotController.getBatteryVoltage() < 11) {
+      LEDControllerNew.getInstance().setMode(LEDMode.LOW_VOLTAGE);
+    }
   }
 
   @Override

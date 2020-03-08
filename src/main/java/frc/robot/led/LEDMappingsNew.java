@@ -25,5 +25,7 @@ public interface LEDMappingsNew {
     final char CLIMB_ACTIVE = 'i';
     final char WINCH_ACTIVE = 'j';
 
+    final char LOW_VOLTAGE = 'k';
+
     final char DEFAULT = '1';
 }

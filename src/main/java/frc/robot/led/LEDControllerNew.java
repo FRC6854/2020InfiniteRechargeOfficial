@@ -20,6 +20,7 @@ public class LEDControllerNew extends SubsystemBase implements LEDMappingsNew {
         VISION,
         CLIMB_ACTIVE,
         WINCH_ACTIVE,
+        LOW_VOLTAGE,
         DEFAULT
     };
 
@@ -62,6 +63,10 @@ public class LEDControllerNew extends SubsystemBase implements LEDMappingsNew {
                 break;
             case WINCH_ACTIVE:
                 sendData(WINCH_ACTIVE);
+                break;
+            case LOW_VOLTAGE:
+                sendData(LOW_VOLTAGE);
+                break;
             case DEFAULT:
                 sendData(DEFAULT);
                 break;
