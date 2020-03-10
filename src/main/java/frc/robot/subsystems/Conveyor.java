@@ -3,7 +3,10 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 import frc.robot.commands.conveyor.DriveConveyor;
+import frc.robot.led.LEDControllerNew;
+import frc.robot.led.LEDControllerNew.LEDMode;
 import viking.controllers.rev.VikingMAX;
+import viking.led.LEDController;
 
 public class Conveyor extends SubsystemBase implements Constants, RobotMap {
 
@@ -17,7 +20,7 @@ public class Conveyor extends SubsystemBase implements Constants, RobotMap {
     upperConveyor = new VikingMAX(CAN_UPPER_CONVEYOR, true);
   }
 
-  public void setOutputIntake(double speed) {
+  public void setOutputIntake(double speed) {    
     intakeConveyor.percentOutput(speed);
   }
 
@@ -36,6 +39,14 @@ public class Conveyor extends SubsystemBase implements Constants, RobotMap {
   public void fullStop() {
     fullStopIntake();
     fullStopUpper();
+  }
+
+  public double getIntakeOutput() {
+    return intakeConveyor.getOutput();
+  }
+
+  public double getUpperOutput() {
+    return upperConveyor.getOutput();
   }
 
   public VikingMAX getIntakeMotor() {

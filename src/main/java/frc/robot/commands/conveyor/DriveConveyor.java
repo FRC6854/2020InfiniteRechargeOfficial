@@ -41,6 +41,7 @@ public class DriveConveyor extends CommandBase {
         conveyor.setOutputUpper(output);
       }
       else {
+        LEDControllerNew.getInstance().setMode(LEDMode.DEFAULT);
         conveyor.fullStopIntake();
         conveyor.fullStopUpper();
       }
@@ -51,6 +52,7 @@ public class DriveConveyor extends CommandBase {
   public void end(boolean interrupted) {
     conveyor.fullStopIntake();
     conveyor.fullStopUpper();
+    LEDControllerNew.getInstance().setMode(LEDMode.DEFAULT);
   }
 
   @Override

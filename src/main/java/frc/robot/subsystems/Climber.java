@@ -6,6 +6,8 @@ import com.revrobotics.CANSparkMax.SoftLimitDirection;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 import frc.robot.commands.climber.DriveClimber;
+import frc.robot.led.LEDControllerNew;
+import frc.robot.led.LEDControllerNew.LEDMode;
 import viking.controllers.ctre.VikingSPX;
 import viking.controllers.ctre.VikingSRX;
 import viking.controllers.rev.VikingMAX;
@@ -70,6 +72,10 @@ public class Climber extends SubsystemBase implements Constants, RobotMap {
 
   public double getLiftTicks() {
     return lift.getPosition();
+  }
+
+  public double getWinchOutput() {
+    return winchMaster.getTalonSRX().getMotorOutputPercent();
   }
 
   public int getWinchTicks() {

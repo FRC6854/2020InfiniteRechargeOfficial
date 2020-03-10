@@ -69,6 +69,7 @@ public class AimShoot extends CommandBase {
       shooter.fullStop();
       conveyor.fullStop();
       drivetrain.arcadeDrive(0, 0);
+      LEDControllerNew.getInstance().setMode(LEDMode.DEFAULT);
     }
   }
 

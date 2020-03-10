@@ -73,6 +73,7 @@ public class RunConveyorTime extends CommandBase {
   public void end(boolean interrupted) {
     timer.stop();
     conveyor.fullStop();
+    LEDControllerNew.getInstance().setMode(LEDMode.DEFAULT);
   }
 
   @Override

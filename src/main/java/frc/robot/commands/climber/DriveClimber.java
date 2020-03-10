@@ -56,6 +56,10 @@ public class DriveClimber extends CommandBase {
       climber.setLiftOutput(liftOutput);
       climber.setWinchOutput(0);
     }
+
+    if(climber.getLiftOutput() == 0 && climber.getWinchOutput() == 0) { 
+      LEDControllerNew.getInstance().setMode(LEDMode.DEFAULT);
+    }
   }
 
   @Override
