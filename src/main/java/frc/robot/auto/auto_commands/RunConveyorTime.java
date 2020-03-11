@@ -29,6 +29,7 @@ public class RunConveyorTime extends CommandBase {
   @Override
   public void initialize() {
     timer.start();
+    conveyor.fullStop();
   }
 
   @Override

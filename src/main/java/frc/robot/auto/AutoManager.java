@@ -3,7 +3,7 @@ package frc.robot.auto;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.auto.auto_commands.AimShoot;
-import frc.robot.auto.auto_commands.AutoFirst;
+import frc.robot.auto.auto_commands.MiddleTrenchShoot;
 import frc.robot.auto.auto_commands.RunConveyorTime;
 import frc.robot.commands.debug.LimelightCalibration;
 import frc.robot.commands.drivetrain.DriveDistance;
@@ -17,10 +17,8 @@ public class AutoManager {
     private static SendableChooser<Integer> autoChooser = new SendableChooser<Integer>();
 
     private AutoManager () {
-      autoChooser.setDefaultOption("Limelight Calibration", 1);
-      autoChooser.addOption("Auto Shoot", 2);
-      autoChooser.addOption("Conveyor Time", 3);
-      autoChooser.addOption("Drive To Trench", 4);
+      autoChooser.setDefaultOption("Middle Trench Shoot", 1);
+      autoChooser.addOption("Limelight Calibration", 0);
     }
 
     public SendableChooser<Integer> getAutoChooser() {
@@ -30,22 +28,9 @@ public class AutoManager {
     public Command getAutoChooserCommand() {
       switch (autoChooser.getSelected()) {
         case 1:
+          return new MiddleTrenchShoot();
+        case 0:
           return new LimelightCalibration();
-        case 2:
-          return new AimShoot().withTimeout(2.0);
-        case 3:
-          // Run at 50% speed at start and stop after 1 second then at 2 seconds go at 50% speed
-          return new RunConveyorTime(
-            new double[][] {
-              {0.0, 0.5, 0.5}, 
-              {1.0, 0.0, 0.0},
-              {2.0, 1.0, 1.0},
-              {3.0, 0.0, 0.0}
-            }
-          );
-        case 4:
-          //return new DriveDistance(5);
-          return new AutoFirst();
       }
 
       return null;

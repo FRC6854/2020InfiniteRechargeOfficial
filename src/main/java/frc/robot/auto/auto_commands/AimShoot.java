@@ -84,6 +84,9 @@ public class AimShoot extends CommandBase {
     LEDControllerNew.getInstance().setMode(LEDMode.DEFAULT);
     limelight.setDriverMode(true);
     limelight.setLEDMode(LightMode.OFF);
+    shooter.fullStop();
+    conveyor.fullStop();
+    drivetrain.arcadeDrive(0, 0);
   }
 
   @Override
