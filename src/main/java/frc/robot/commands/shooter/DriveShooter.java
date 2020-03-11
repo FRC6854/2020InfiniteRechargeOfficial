@@ -2,6 +2,7 @@ package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+import frc.robot.subsystems.Constants;
 import frc.robot.subsystems.Shooter;
 import viking.Limelight;
 
@@ -18,18 +19,18 @@ public class DriveShooter extends CommandBase {
   public void execute() {
     if (Robot.driver.getControllerRBumper() == true) {
       if (Limelight.getInstance().validTargets() == true) {
-        if (Limelight.getInstance().targetY() < -7) {
-          shooter.setOutputTop(0.65);
-          shooter.setOutputBottom(0.65);
+        if (Limelight.getInstance().targetY() < Constants.MAX_LIMELIGHT_DISTANCE) {
+          shooter.setOutputTop(Constants.MAX_LIMELIGHT_SPEED);
+          shooter.setOutputBottom(Constants.MAX_LIMELIGHT_SPEED);
         }
         else {
-          shooter.setOutputTop(0.55);
-          shooter.setOutputBottom(0.55);
+          shooter.setOutputTop(Constants.MIN_SPEED);
+          shooter.setOutputBottom(Constants.MIN_SPEED);
         }
       }
       else {
-        shooter.setOutputTop(0.55);
-        shooter.setOutputBottom(0.55);
+        shooter.setOutputTop(Constants.MIN_SPEED);
+        shooter.setOutputBottom(Constants.MIN_SPEED);
       }
       
     }
