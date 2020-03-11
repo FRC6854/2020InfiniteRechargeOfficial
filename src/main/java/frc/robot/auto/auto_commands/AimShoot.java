@@ -53,8 +53,14 @@ public class AimShoot extends CommandBase {
         conveyor.setOutputUpper(0.65);
         conveyor.setOutputIntake(0.65);
 
-        shooter.setOutputTop(0.55);
-        shooter.setOutputBottom(0.55);
+        if (Limelight.getInstance().targetY() < -7) {
+          shooter.setOutputTop(0.65);
+          shooter.setOutputBottom(0.65);
+        }
+        else {
+          shooter.setOutputTop(0.55);
+          shooter.setOutputBottom(0.55);
+        }
 
         LEDControllerNew.getInstance().setMode(LEDMode.VISION);
       }

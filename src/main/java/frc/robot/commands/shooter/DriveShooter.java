@@ -3,6 +3,7 @@ package frc.robot.commands.shooter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.subsystems.Shooter;
+import viking.Limelight;
 
 public class DriveShooter extends CommandBase {
 
@@ -16,8 +17,21 @@ public class DriveShooter extends CommandBase {
   @Override
   public void execute() {
     if (Robot.driver.getControllerRBumper() == true) {
-      shooter.setOutputTop(0.55);
-      shooter.setOutputBottom(0.55);
+      if (Limelight.getInstance().validTargets() == true) {
+        if (Limelight.getInstance().targetY() < -7) {
+          shooter.setOutputTop(0.65);
+          shooter.setOutputBottom(0.65);
+        }
+        else {
+          shooter.setOutputTop(0.55);
+          shooter.setOutputBottom(0.55);
+        }
+      }
+      else {
+        shooter.setOutputTop(0.55);
+        shooter.setOutputBottom(0.55);
+      }
+      
     }
     else if (Robot.driver.getControllerLBumper() == true) {
       shooter.setOutputTop(0.3);

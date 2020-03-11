@@ -3,8 +3,12 @@ package frc.robot.auto;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.auto.auto_commands.AimShoot;
+import frc.robot.auto.auto_commands.AutoFirst;
 import frc.robot.auto.auto_commands.RunConveyorTime;
 import frc.robot.commands.debug.LimelightCalibration;
+import frc.robot.commands.drivetrain.DriveDistance;
+import frc.robot.commands.drivetrain.ProfileFollower;
+import viking.ProfileBuffer;
 
 public class AutoManager {
 
@@ -16,6 +20,7 @@ public class AutoManager {
       autoChooser.setDefaultOption("Limelight Calibration", 1);
       autoChooser.addOption("Auto Shoot", 2);
       autoChooser.addOption("Conveyor Time", 3);
+      autoChooser.addOption("Drive To Trench", 4);
     }
 
     public SendableChooser<Integer> getAutoChooser() {
@@ -38,6 +43,9 @@ public class AutoManager {
               {3.0, 0.0, 0.0}
             }
           );
+        case 4:
+          //return new DriveDistance(5);
+          return new AutoFirst();
       }
 
       return null;

@@ -1,5 +1,6 @@
 package frc.robot.commands.drivetrain;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.Robot;
@@ -34,6 +35,8 @@ public class ArcadeDrive extends CommandBase {
       limelight.setDriverMode(false);
 
       if (limelight.validTargets() == true) {
+        SmartDashboard.putNumber("Limelight Y", limelight.targetY());
+
         // Calculate the PID output using a threshold and make the target 0 (center of the crosshair)
         double pidAim = aimPIDController.calcPID(0, -limelight.targetX(), Constants.AIM_kThreshold);
 

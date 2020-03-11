@@ -35,7 +35,7 @@ public interface Constants {
 	public final double AIM_kD = 0.02;
 
 	public final double AIM_kMaxCommand = 0.75;
-	public final double AIM_kThreshold = 2;
+	public final double AIM_kThreshold = 3;
 
 	/**
 	 * --------------------

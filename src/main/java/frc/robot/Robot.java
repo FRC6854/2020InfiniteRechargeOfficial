@@ -58,7 +58,7 @@ public class Robot extends TimedRobot implements RobotMap {
     SmartDashboard.putData(autoManager.getAutoChooser());
 
     // Low Voltage Display
-    if (RobotController.getBatteryVoltage() < 11) {
+    if (RobotController.getBatteryVoltage() < 10) {
       LEDControllerNew.getInstance().setMode(LEDMode.LOW_VOLTAGE);
     }
   }
@@ -66,6 +66,7 @@ public class Robot extends TimedRobot implements RobotMap {
   @Override
   public void disabledInit() {
     System.out.println("Disabled");
+    LEDControllerNew.getInstance().setMode(LEDMode.DEFAULT);
     CommandScheduler.getInstance().cancelAll();
   }
 
@@ -98,4 +99,5 @@ public class Robot extends TimedRobot implements RobotMap {
   public void teleopPeriodic() {
     CommandScheduler.getInstance().run();
   }
+
 }

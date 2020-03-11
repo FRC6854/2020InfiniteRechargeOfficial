@@ -28,6 +28,13 @@ public class DriveConveyor extends CommandBase {
     if (Robot.driver.getControllerLBumper() == true || Robot.driver.getControllerRBumper() == true) {
       conveyor.setOutputIntake(output);
       conveyor.setOutputUpper(output);
+      if(output > 0) {
+        LEDControllerNew.getInstance().setMode(LEDMode.BOTH_FWRD);
+      } else if (output < 0) {
+        LEDControllerNew.getInstance().setMode(LEDMode.BOTH_BKWD);
+      } else {
+        LEDControllerNew.getInstance().setMode(LEDMode.DEFAULT);
+      }
     } 
     else {
       if (output > 0) {
@@ -54,8 +61,8 @@ public class DriveConveyor extends CommandBase {
     conveyor.fullStopUpper();
     LEDControllerNew.getInstance().setMode(LEDMode.DEFAULT);
   }
-
   @Override
+
   public boolean isFinished() {
     return false;
   }
