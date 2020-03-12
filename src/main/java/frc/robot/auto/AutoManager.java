@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.auto.auto_commands.AimShoot;
 import frc.robot.auto.auto_commands.MiddleTrenchShoot;
+import frc.robot.auto.auto_commands.RightTrenchShoot;
 import frc.robot.auto.auto_commands.RunConveyorTime;
 import frc.robot.commands.debug.LimelightCalibration;
 import frc.robot.commands.drivetrain.DriveDistance;
@@ -18,6 +19,7 @@ public class AutoManager {
 
     private AutoManager () {
       autoChooser.setDefaultOption("Middle Trench Shoot", 1);
+      autoChooser.addOption("Right Trench Shoot", 2);
       autoChooser.addOption("Limelight Calibration", 0);
     }
 
@@ -29,6 +31,8 @@ public class AutoManager {
       switch (autoChooser.getSelected()) {
         case 1:
           return new MiddleTrenchShoot();
+        case 2:
+          return new RightTrenchShoot();
         case 0:
           return new LimelightCalibration();
       }

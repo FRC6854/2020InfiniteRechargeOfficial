@@ -78,7 +78,7 @@ public class Robot extends TimedRobot implements RobotMap {
 
     Command autoCommand = autoManager.getAutoChooserCommand();
     if (autoCommand != null) {
-      CommandScheduler.getInstance().schedule(autoCommand.withTimeout(15));
+      CommandScheduler.getInstance().schedule(autoCommand);
     }
     else {
       CommandScheduler.getInstance().schedule(new AimShoot().withTimeout(15));

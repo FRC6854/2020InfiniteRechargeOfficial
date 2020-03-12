@@ -64,7 +64,7 @@ public interface Constants {
 	public final double SHOOTER_MAX_VELOCITY = 0;
 
 	public final double MAX_LIMELIGHT_DISTANCE = -7;
-	public final double MAX_LIMELIGHT_SPEED = 0.65;
+	public final double MAX_LIMELIGHT_SPEED = 0.60;
 
 	public final double MIN_SPEED = 0.55;
 
