@@ -2,7 +2,7 @@
 
 [![Build Status](https://github.com/FRC6854/2020InfiniteRechargeOfficial/workflows/Java%20CI/badge.svg)](https://github.com/FRC6854/2020InfiniteRechargeOfficial/actions)
 
-Build project online before deploying to robot to fetch all `vendordeps`. Also use latest `VIKING` package.
+Build project with internet connection before deploying to robot to fetch all `vendordeps`. Also use latest `VIKING` package.
 
 ### Layout
 The current project uses our layout from last season.
