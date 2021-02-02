@@ -1,8 +1,8 @@
 # 2020 Infinite Recharge Official
 
-[![Build Status](https://vikingrobotics.visualstudio.com/FRC%202020%20Infinite%20Recharge%20Bot%20Code/_apis/build/status/FRC6854.2020InfiniteRechargeOfficial?branchName=master)](https://vikingrobotics.visualstudio.com/FRC%202020%20Infinite%20Recharge%20Bot%20Code/_build/latest?definitionId=3&branchName=master)
+[![Build Status](https://github.com/FRC6854/2020InfiniteRechargeOfficial/workflows/Java%20CI/badge.svg)](https://github.com/FRC6854/2020InfiniteRechargeOfficial/actions)
 
-Build project online before deploying to robot to fetch all `vendordeps`. Also use latest `VIKING` package.
+Build project with internet connection before deploying to robot to fetch all `vendordeps`. Also use latest `VIKING` package.
 
 ### Layout
 The current project uses our layout from last season.

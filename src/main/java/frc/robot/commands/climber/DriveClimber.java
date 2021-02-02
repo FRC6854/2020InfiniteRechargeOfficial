@@ -33,8 +33,6 @@ public class DriveClimber extends CommandBase {
       liftOutput = 0.25;
     }
 
-    winchOutput *= 0.75;
-
     if (Robot.operator.getControllerBButton() == true) {
       LEDControllerNew.getInstance().setMode(LEDMode.WINCH_ACTIVE);
 
